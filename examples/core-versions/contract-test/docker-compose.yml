@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  prism_site_content_service_mock:
+    container_name: site_content_service_mock
+    image: stoplight/prism:4.10.1
+    command: 'mock -h 0.0.0.0 ${PRISM_CONTRACTS_FOLDER}/excite/core-versions/${MERGED_CONTRACT_PATH}'
+    volumes:
+      - type: bind
+        source:  ../${MERGED_CONTRACT_PATH}
+        target: /usr/src/prism/packages/cli/${PRISM_CONTRACTS_FOLDER}/excite/core-versions/${MERGED_CONTRACT_PATH}
+    ports:
+      - '${PRISM_PORT_SITE_CONTENT_SERVICE}:${PRISM_PORT_INTERNAL}'

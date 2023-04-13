@@ -1,0 +1,41 @@
+---
+format_version: 3
+pipelines:
+  {{ generated_service_id }}-deploy-to-live-uspa1:
+    group: {{ generated_service_id }}
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    secure_variables:
+      password_pp: AES:52n2b7geHzhRiVaXVvIu6w==:u92pPzeaxaENqKpMGa74VpACZAdqejb1TLcMIpMb0z8=
+      password: AES:USwHEq4Pxh6LNg4rftJubw==:v5YakfQEkwTnLvXykldWuw==
+      gocd_agent_artifactory_password: AES:naqOGANUbGSuSSFDUiYZwQ==:E/C0A1eeReF9TVW5WYKfmLzT9xaCyEIn7f6kHyQxDFs=
+      password_int: AES:WxHsC14B7kIaX7KvEHB15A==:yCyOi/z4St8tVQmoZjpfZZ9YeqFIYxs3f2AimlbmUKY=
+    environment_variables:
+      is_automated_live: '-l true'
+      deploy_env_flag: '-e live-uspa1'
+      reg_env: crt01
+      cc_username: Excite-Unicorn-Executor
+      MSTEAMS_URL: https://gamesys.webhook.office.com/webhookb2/9c45693c-b685-45e4-9a7e-a0222ad9e359@a2fb1bdc-71c6-43b3-b80d-de077d817707/IncomingWebhook/ae5dd4a9079a4e02a4de71960a9592c5/1ee6cfcf-2e3a-4a60-b0fe-0c463173716e
+    materials:
+      {{ generated_service_id }}-build-docker:
+        pipeline: {{ generated_service_id }}-build-docker
+        stage: build
+    template: deploy-to-live-NA-consolidated
+    parameters:
+      fetch_artifact_pipeline: {{ generated_service_id }}-build-docker
+      fetch_artifact_stage: build
+      fetch_artifact_job: build
+      component: {{ generated_service_id }}
+      jira_component: {{ generated_service_id }}
+      stg_template_no: {{ generated_service_id }} - pp21 - V3
+      cc_host_stg: https://controlcentre.stg.pgt.gamesysgames.com
+      deploy_env_pp: pp21
+      deploy_region: pa
+      deployment_name: {{ generated_service_id }}
+      deployment_alias: {{ generated_service_id }}
+      deployment_version_alias: app
+      job_template: {{ generated_service_id }} - l1
+      environment: V3
+      cc_host_live: https://controlcentre.prod.root.uspa1.gaia/
+      deploy_env: uspa1

@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  version: 1.0.0
+  description: Sample description
+servers:
+  - url: http://api.example.com/v1
+    description: "Optional server description, e.g. Main (production) server"
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /dummy/{id}:
+    get:
+      parameters:
+        - name: id
+          description: ID of pet to fetch
+          schema:
+            format: int64
+            type: integer
+          in: path
+          required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+          description: A JSON array of dummy data
+      summary: Returns a list of dummy data.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: "dummy-get"
+  /dummy:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/example_post"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    description: The ID of the dummy item.
+                    type: integer
+          description: A JSON array of dummy data
+      operationId: dummy.post
+      summary: Creates a new dummy data item.
+      x-controller: dummy-post
+components:
+  schemas:
+    example_post:
+      description: ""
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        name:
+          description: ""
+          type: string
+        value:
+          description: ""
+          type: string

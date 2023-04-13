@@ -1,0 +1,86 @@
+title: SectionLayout
+description: Section layout configuration
+type: object
+properties:
+  header:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+  show:
+    type: object
+    properties:
+      loggedIn:
+        type: boolean
+      loggedOut:
+        type: boolean
+  type:
+    type: string
+  className:
+    type: string
+  carousel:
+    type: object
+    properties:
+      customs:
+        type: object
+        properties:
+          size:
+            type: object
+            properties:
+              tall:
+                type: boolean
+              wide:
+                type: boolean
+          enabled:
+            type: boolean
+          itemsPerColumn:
+            type: number
+      settings:
+        type: object
+        properties:
+          autoplay:
+            type: boolean
+          slidesToShow:
+            type: number
+          slidesToScroll:
+            type: number
+  highlight:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+      style:
+        type: object
+        properties:
+          backgroundColor:
+            type: string
+  jackpots:
+    type: array
+    items:
+      type: string
+example:
+  header:
+    type: object
+    properties:
+      enabled: true
+  show:
+    loggedIn: false
+    loggedOut: true
+  type: normal
+  className: some-classname
+  carousel:
+    customs:
+      enabled: false
+      itemsPerColumn: 1
+      size:
+        tall: false
+        wide: false
+    settings:
+      autoplay: false
+      slidesToScroll: 1
+      slidesToShow: 1
+  highlight:
+    enabled: true
+    style:
+      backgroundColor: '#fff'
+  jackpots: ['1', '2', '3']

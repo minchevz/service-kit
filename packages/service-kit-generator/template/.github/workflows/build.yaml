@@ -1,0 +1,40 @@
+name: Build and Test
+
+on:
+  workflow_dispatch:
+  #push:
+    #branches:
+
+env:
+  CI: true
+
+jobs:
+  build:
+    runs-on: [unicorn]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/
+
+      - name: Install
+        run: yarn --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Lint
+        run: yarn lintify
+
+      - name: Unit Test
+        run: yarn test
+
+      - name: Integration Test
+        run: yarn test:integration
+
+      - name: Build
+        run: yarn build:prod

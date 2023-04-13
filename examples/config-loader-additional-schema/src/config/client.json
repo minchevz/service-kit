@@ -1,0 +1,9 @@
+{
+  "Client": {
+    "example": {
+      "doc": "The NODE_CLIENT_EXAMPLE environment.",
+      "default": "my-default-value",
+      "env": "NODE_CLIENT_EXAMPLE"
+    }
+  }
+}

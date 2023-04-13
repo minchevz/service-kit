@@ -1,0 +1,8 @@
+title: Root Type for Error Response
+description: Error response configuration for failed requests
+type: object
+properties:
+  status:
+    type: integer
+  message:
+    type: string

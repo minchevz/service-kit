@@ -1,0 +1,787 @@
+---
+openapi: 3.0.0
+info:
+  title: example-service
+  version: 3.0.0
+  description: |-
+    This is a Example Microservice API Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io). We've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features.
+    Some useful links:
+    - [The repository](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions)
+    - [The source API definition](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions/src/contract)
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: PlayerServices/pegacorn
+
+tags:
+  - name: Game
+    description: Everything about Site Games
+  - name: Mini Game
+    description: Everything about Site Mini Games
+  - name: Recommended Game
+    description: Everything about Site Recommended Games
+  - name: Site Content
+    description: Everything about Site Contents
+paths:
+  /site/{sitename}/games/config/{name}:
+    get:
+      summary: Game Config Data
+      description: Returns configuration for a game
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: name
+          description: game name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Game
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameConfigData'
+          description: A JSON object of game config data
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /site/{sitename}/games/info/{name}:
+    get:
+      summary: Game Info Data
+      description: Returns information for a game.
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: name
+          description: game name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Game
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameInfoData'
+          description: A JSON object of game info data
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /site/{sitename}/game-titles:
+    get:
+      summary: Game Titles Data
+      description: Returns information for all game titles.
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Game
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameTitlesList'
+          description: A JSON object of game info data
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /site/{sitename}/games/{miniGamesCategory}:
+    get:
+      summary: Returns a list of game data.
+      deprecated: true
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: Venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: miniGamesCategory
+          description: Purpose Unknown
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Mini Game
+      responses:
+        '200':
+          description: List of games
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MiniGameList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /site/{sitename}/games:
+    get:
+      summary: Returns a list of game data.
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: Venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Mini Game
+      responses:
+        '200':
+          description: List of games
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MiniGameList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /site/{sitename}/games/search/{platform}:
+    get:
+      summary: Returns a list of searched game data.
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: Venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: platform
+          description: platform device type
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Game
+      responses:
+        '200':
+          description: List of searched games
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GamesSearchList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /categories/sitenames/{sitename}:
+    get:
+      summary: Returns a list of categories.
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: Venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Site Content
+      responses:
+        '200':
+          description: List of Categories definitions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categories'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /sections/sitenames/{sitename}/categories/{category}/platforms/{platform}:
+    get:
+      deprecated: true
+      summary: getSectionList
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: category
+          description: category name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: platform
+          description: platform, e.g. desktop,tablet,phone
+          schema:
+            type: string
+          in: path
+          required: true
+      tags:
+        - Site Content
+      responses:
+        "200":
+          description: The response from the proxied URL.
+          content:
+            application/json:
+              schema:
+                type: object
+  /sections/sitenames/{sitename}/categories/{category}/platforms/{platform}/{memberId}:
+    get:
+      deprecated: true
+      summary: getSectionList
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: category
+          description: category name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: platform
+          description: platform, e.g. desktop,tablet,phone
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: memberId
+          description: authenticated users memberId (not used)
+          schema:
+            type: string
+          in: path
+          required: true
+      tags:
+        - Site Content
+      responses:
+        "200":
+          description: The response from the proxied URL.
+          content:
+            application/json:
+              schema:
+                type: object
+  /site/{sitename}/games/recommended/{platform}/{id}:
+    get:
+      summary: getRecommendedGames
+      x-controller: v1/get
+      parameters:
+        - name: sitename
+          description: venture name
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: platform
+          description: website platform like desktop,mobile
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: id
+          description: member id
+          schema:
+            type: number
+          in: path
+          required: true
+        - name: content-env
+          description: CMS Content Environment
+          schema:
+            type: string
+          in: header
+      tags:
+        - Recommended Game
+      responses:
+        "200":
+          description: The response from the proxied URL.
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    Error:
+      title: Root Type for Error Response
+      description: Error response configuration for failed requests
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+    GameConfigData:
+      title: GameConfigResponse
+      description: Response of configuration info of particular game
+      type: object
+      properties:
+        chat:
+          properties:
+            isEnabled:
+              type: boolean
+        vendorData:
+          properties:
+            game:
+              type: string
+        gameLoaderFileName:
+          type: string
+        vendor:
+          type: string
+        gameType:
+          type: string
+        gameName:
+          type: string
+        minBet:
+          type: string
+      example:
+        chat:
+          isEnabled: true
+        vendorData:
+          game: play-double-bubble-progressive
+        gameLoaderFileName: play-double-bubble-progressive
+        vendor: gamesys
+        gameName: play-double-bubble-progressive
+        minBet: '10'
+        gameType: rgp
+    GameInfoData:
+      title: GameInfoResponse
+      description: Information about a game
+      type: object
+      properties:
+        demoUrl:
+          type: string
+        gameSkin:
+          type: string
+        howToPlayContent:
+          type: string
+        infoDetails:
+          type: string
+        infoImgUrlPattern:
+          type: string
+        introductionContent:
+          type: string
+        maxBet:
+          type: string
+        minBet:
+          type: string
+        name:
+          type: string
+        realUrl:
+          type: string
+        representativeColor:
+          type: string
+        title:
+          type: string
+      required:
+        - name
+        - title
+        - demoUrl
+        - realUrl
+        - infoDetails
+        - introductionContent
+        - howToPlayContent
+      example:
+        demoUrl: /service/game/demo/slot-double-bubble
+        gameSkin: play-double-bubble-progressive
+        howToPlayContent: >-
+          <h3>How to Play Multiline Slots</h3><p>With multiline slots you will have the chance to bet on more than one win line at a time. </p><p>This is beneficial as it gives you more opportunities to find matching symbols, which is the aim of any slot game. You can also win on more than one line at a time.  </p><p>Choosing to bet on more than one line at a time will increase your overall stake. If you bet with a 20p coin size per line and bet on 20 lines you will be spending a total of £4 per
+          spin.  </p><h3>Coin Size  </h3><p>Choosing your coin size will control the amount you bet on each line.  </p><p>The coin sizes in Double Bubble range from 1p up to £10.  </p><p>The coin size is important because your payouts will be based on multiples of it.  </p><h3>Win Lines  </h3><p>You will have the option to select the number of lines you would like to bet on. Lines appear across the reels and will multiply your coin size.  </p><p>Click ‘Bet One’ to add another line, up to the
+          maximum of 20 paylines.  </p><p>Click on the coloured numbers on the side of the reels to choose how many lines you would like to play.  </p><p>Clicking ‘Bet Max’ will automatically select all of the lines and will start the reels spinning.  </p><p>Betting on a larger number of lines will increase your chances of winning, but it will not increase your payout as this is dependent on your coin size.  </p><h3>Spinning the Reels  </h3><p>Clicking "Spin" or "Bet Max" will start your game of
+          Double Bubble.  </p><h3>Wild Symbols  </h3><p>The Double Bubble symbol is Wild and will substitute in for any other symbol, apart from the Bonus symbol, to complete wins.  </p><p>Landing five Wild symbols on a single payline will award the highest payout in this game - x20,000 your coin size.  </p><h3>Bubble Line Win</h3><p>If any symbol appears inside a bubble then that symbol is placed in the second win area along the Bubble Line. The Bubble Line pays left to right like a normal pay
+          line but is multiplied by the Bubble Line Multiplier. The Bubble Line Multiplier is equal to the number of lines played, except when 20 lines are played the multiplier is increased to x22.</p><h3>Pop the Bubble Bonus Game</h3><p> If three Bonus symbols appear anywhere on reels one, three and five then the Bubble Bonus round will be initiated.  You will then be presented with three bubbles and asked to choose one of them. If a random coin multiplier appears after you pop a balloon then
+          you will win it.</p><h3>Return To Player (RTP)</h3><p>Return To Player (RTP): 96.02%.</p><p>This return is based on the player making the best choices.  The actual monthly return to player for Double Bubble ranges between 95.75% and 96.24%.</p><p>The return is the amount we have paid out to players relative to all wagering on the game.  </p><p>For example, if we take £100 of wagers we will, on average, pay out between £95.75 and £96.24.</p>
+        infoDetails: <dt>Coin Size:</dt><dd>1p-£10</dd><dt>Paylines:</dt><dd>20</dd><dt>Top Payout:</dt><dd>20,000 coins</dd><dt>Features:</dt><dd>Bubble Line, Bubble Bonus</dd><dt>Auto Spin:</dt><dd>No</dd>
+        infoImgUrlPattern: /api/content/gametiles/double-bubble-jackpot-logged-out/scale-s%s/double-bubble-jackpot-tile-r%s-w%s.jpg
+        introductionContent: <p>Welcome to the world of Double Bubble, the soapy slot packed with two bubbly bonus games and a top payout of 20,000x your coin size!</p>
+        maxBet: £200
+        minBet: 1p
+        name: slot-double-bubble
+        realUrl: /service/game/play/slot-double-bubble
+        representativeColor: '#B0E7D0'
+        title: Double Bubble
+    GameTitlesList:
+      title: GameTitlesList
+      description: List of Game Titles
+      type: array
+      items:
+        $ref: '#/components/schemas/GameTitle'
+    GameTitle:
+      properties:
+        gameSkin:
+          type: string
+        title:
+          type: string
+      example:
+        gameSkin: play-double-bubble
+        title: Double Bubble
+    MiniGameList:
+      title: MiniGameList
+      description: List of Mini Games
+      type: array
+      items:
+        $ref: '#/components/schemas/MiniGamesSection'
+    MiniGamesSection:
+      properties:
+        carousel: {}
+        games:
+          items:
+            $ref: '#/components/schemas/MiniGame'
+          type: array
+        name:
+          type: string
+        title:
+          type: string
+      additionalProperties: false
+      type: object
+    MiniGame:
+      properties:
+        demoUrl:
+          type: string
+        gameSkin:
+          type: string
+        imgUrlPattern:
+          type: string
+        name:
+          type: string
+        realUrl:
+          type: string
+        representativeColor:
+          type: string
+        title:
+          type: string
+      additionalProperties: false
+      type: object
+    Categories:
+      title: CategoriesResponse
+      description: Response of categories defined for a particular venture
+      type: array
+      items:
+        type: object
+        properties:
+          icons:
+            type: array
+            items:
+              type: object
+              properties:
+                format:
+                  type: string
+                pattern:
+                  type: string
+          background:
+            properties:
+              color:
+                type: string
+              url:
+                type: string
+          id:
+            type: string
+          name:
+            type: string
+          title:
+            type: string
+          slug:
+            type: string
+          url:
+            type: string
+          desktop:
+            type: boolean
+          tablet:
+            type: boolean
+          phone:
+            type: boolean
+          availability:
+            type: array
+            items:
+              type: string
+        example:
+          id: homepage
+          name: homepage
+          title: Inicio
+          slug: home
+          url: /some-optional-url
+          desktop: true
+          tablet: true
+          phone: true
+          icons:
+            - format: png
+            - pattern: /api/content/categories/homepage/scale-s%s/homepage-icon.png
+          background:
+            color: '#FFFFFF'
+            url: /api/content/backgrounds/scale-1/desktop.jpg
+          availability:
+            - native-*
+    GamesSearchList:
+      title: GameSearchResponse
+      description: Response of searched games defined for a particular venture
+      type: array
+      items:
+        type: object
+        properties:
+          categories:
+            type: array
+            items:
+              type: string
+          name:
+            type: string
+          title:
+            type: string
+          imgUrlPattern:
+            type: string
+          loggedInOnly:
+            type: boolean
+        example:
+          categories: [ "Free" ]
+          name: homepage
+          title: dfg-doubly-bubbly-grid
+          imgUrlPattern: /api/content/gametiles/doubly-bubbly/scale-s%s/doubly-bubbly-tile-r%s-w%s.jpg
+          loggedOutImgUrlPattern: /api/content/gametiles/tiki-island-jackpot-logged-out/scale-s%s/tiki-island-jackpot-tile-r%s-w%s.jpg
+          loggedInOnly: false

@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  description: Sample description
+  version: 1.0.0
+paths:
+  /example-redis:
+    get:
+      summary: Returns a bunch of dummy data.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: example-redis/redis
+      tags:
+        - Example
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /example-memory:
+    get:
+      summary: Returns a bunch of dummy data.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: example-memory/memory
+      tags:
+        - Example
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /example-cacher:
+    get:
+      summary: Returns a bunch of dummy data.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: example-cacher/cacher
+      tags:
+        - Example
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string

@@ -1,0 +1,37 @@
+get:
+  summary: getSectionGames
+  x-controller: v2/get
+  parameters:
+    - name: sitename
+      description: venture name
+      schema:
+        type: string
+      in: path
+      required: true
+    - name: category
+      description: category name
+      schema:
+        type: string
+      in: path
+      required: true
+    - name: section
+      description: section name
+      schema:
+        type: string
+      in: path
+      required: true
+    - name: platform
+      description: platform, e.g. desktop,tablet,phone
+      schema:
+        type: string
+      in: path
+      required: true
+  tags:
+    - Site Section Game
+  responses:
+    "200":
+      description: The response from the proxied URL.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/SectionGames.yaml'

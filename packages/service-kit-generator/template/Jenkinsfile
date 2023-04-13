@@ -1,0 +1,124 @@
+pipeline {
+    agent none
+    stages {
+        stage('Run if not a docs change') {
+            parallel {
+                    stage('Build and test') {
+                        agent {
+                            docker {
+                                image 'node:14.17.6-alpine'
+                                args '-p 3030-3999:3030'
+                                args '-u 0'
+                            }
+                        }
+                        when {
+                            not {
+                                expression { (env.CHANGE_TITLE =~ /docs/) }
+                            }
+                            beforeAgent true
+                        }
+                        stages {
+                            stage('Install') {
+                                steps {
+                                    sh 'yarn cache clean'
+                                    withNPM(npmrcConfig: 'ci_npmrc') {
+                                        sh 'yarn install --frozen-lockfile'
+                                    }
+                                }
+                            }
+                            stage('Build All Packages') {
+                                steps {
+                                    sh 'yarn run build'
+                                }
+                            }
+                            stage('Run Unit Tests') {
+                                steps {
+                                    sh 'yarn test -- --ci'
+                                }
+                            }
+                            stage('Run Integration Tests') {
+                                steps {
+                                    sh 'yarn test:integration'
+                                }
+                            }
+                            stage('Lintify module') {
+                                steps {
+                                    sh 'yarn lintify'
+                                }
+                            }
+                            stage('Prepare for nexus scan') {
+                                steps {
+                                        sh 'rm -rf ./node_modules'
+                                        withNPM(npmrcConfig: 'ci_npmrc') {
+                                            sh 'yarn install --production --frozen-lockfile'
+                                        }
+                                    }
+                                }
+                            stage('Nexus Policy Evaluation') {
+                                steps {
+                                    script {
+                                        def policyEvaluation = nexusPolicyEvaluation advancedProperties: '', failBuildOnNetworkError: false, iqApplication: selectedApplication('{{generated_service_id}}'), iqScanPatterns: [[scanPattern: '**/*.js'], [scanPattern: '**/*.ts']], iqStage: 'source', jobCredentialsId: ''
+
+                                        if(policyEvaluation.criticalPolicyViolationCount > 0 || policyEvaluation.severeComponentCount > 0) {
+                                            throw new Exception("PolicyViolations: Critical=${policyEvaluation.criticalPolicyViolationCount}, Severe=${policyEvaluation.severeComponentCount}")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        post {
+                            always {
+                                cleanWs()
+                            }
+                        }
+                    }
+                    stage('SonarQube Analysis') {
+                        agent {
+                            docker {
+                                image 'unicorn-docker.artifactory.gamesys.co.uk/centos-openjdk11-node14'
+                                registryUrl 'http://unicorn-docker.artifactory.gamesys.co.uk'
+                                registryCredentialsId 'ARTIFACTORY_LOGIN'
+                                args '-p 3030-3999:3030'
+                                args '-u 0'
+                            }
+                        }
+                        stages {
+                            stage('Install') {
+                                steps {
+                                    sh 'yarn cache clean'
+                                    withNPM(npmrcConfig: 'ci_npmrc') {
+                                        sh 'yarn install --frozen-lockfile'
+                                    }
+                                }
+                            }
+                            stage('Build') {
+                                steps {
+                                    sh 'yarn run build'
+                                }
+                            }
+                            stage('Run Tests') {
+                                steps {
+                                    sh 'yarn test -- --ci'
+                                }
+                            }
+                            stage('SonarQube Scanner') {
+                                environment {
+                                    scannerHome = tool 'Unicorn SonarQube Scanner';
+                                }
+                                steps {
+                                    withSonarQubeEnv('SonarQube PlayerServices') {
+                                        sh '${scannerHome}/bin/sonar-scanner'
+                                    }
+                                }
+                            }
+                        }
+                        post {
+                            always {
+                                cleanWs()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }

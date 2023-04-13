@@ -1,0 +1,5 @@
+---
+artifactory_repo: "unicorn-docker.artifactory.gamesys.co.uk"
+internal_domain: "prod.l1.\{{ 'inx' if env_name == 'live-eu' else env_name }}.gaia"
+splunk_source_type: "k8s.\{{ 'live' if env_name == 'live-eu' else env_name }}"
+k8s_replicas: "\{{ lookup('community.hashi_vault.hashi_vault', 'secret={{ hcv_excite_configuration_path }}/{{ generated_service_id }}_k8s_replicas:value auth_method=approle role_id=\{{ vault_role_id }} secret_id=\{{ vault_secret_id }} url=\{{ vault_addr }}', errors='warn') | default('2', true)}}"

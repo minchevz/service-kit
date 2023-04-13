@@ -1,0 +1,123 @@
+format_version: 3
+pipelines:
+  {{ generated_service_id }}-update-contracts:
+    group: {{ generated_service_id }}
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    environment_variables:
+      MSTEAMS_URL: https://gamesys.webhook.office.com/webhookb2/9c45693c-b685-45e4-9a7e-a0222ad9e359@a2fb1bdc-71c6-43b3-b80d-de077d817707/IncomingWebhook/ae5dd4a9079a4e02a4de71960a9592c5/1ee6cfcf-2e3a-4a60-b0fe-0c463173716e
+    secure_variables:
+      gocd_agent_artifactory_password: AES:naqOGANUbGSuSSFDUiYZwQ==:E/C0A1eeReF9TVW5WYKfmLzT9xaCyEIn7f6kHyQxDFs=
+    materials:
+      service-repo:
+        git: "#{service_repo_path}"
+        includes:
+          - "#{contracts_folder_path}**/*"
+        shallow_clone: true
+        auto_update: true
+        branch: master
+        destination: service
+      contract-hub-repo:
+        git: git@github.gamesys.co.uk:PlayerServices/contract-hub.git
+        ignore:
+          - '**/*'
+        shallow_clone: false
+        auto_update: true
+        branch: master
+        destination: contract-hub
+    stages:
+      - update-contracts:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: false
+          approval:
+            type: success
+            allow_only_on_success: false
+          jobs:
+            update-contracts:
+              timeout: 0
+              resources:
+                - docker
+                - git
+                - node14
+              tasks:
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: '1'
+                    options:
+                      script: "git config --global http.sslverify \"false\"\
+                           \r\ngit config --global user.email \"#{git_email}\"\
+                           \r\ngit config --global user.name \"#{git_name}\""
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - cd contract-hub && git pull; git status
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - rm -rf contract-hub/#{area_name}/#{service_name} && mkdir -p contract-hub/#{area_name}/#{service_name}
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - "cd service && #{service_merge_contract_command}"
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - source service/"#{service_docker_compose_env_file}" && cp service/${MERGED_CONTRACT_PATH} contract-hub/#{area_name}/#{service_name}
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - cd contract-hub && git status && git add -A "#{area_name}/#{service_name}/."
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - cd contract-hub && git commit -m "#{commit_message}" -m "#{service_name} - ${GO_REVISION_SERVICE_REPO}" --no-verify && git push; git status
+                    command: /bin/bash
+                    run_if: passed
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: '1'
+                    options:
+                      script: "if [ -n \"${MSTEAMS_URL}\" ]; then \
+                           \r\n  docker login gamesys-ps-private-docker-build.artifactory.gamesys.co.uk \
+                                 -u ps_incentive_automation_ci -p $gocd_agent_artifactory_password \
+                           \r\n  docker run --rm --name \"notify_ci_${GO_PIPELINE_NAME}_${GO_STAGE_NAME}_${GO_JOB_NAME}_${GO_PIPELINE_COUNTER}\" -t \
+                                 -e GOCD_OPERATION=\"notify_ci\" \
+                                 -e GOCD_NOTIFY_CI_TYPE=\"GENERAL\" \
+                                 -e GOCD_NOTIFY_CI_STATUS=\"FAILED\" \
+                                 -e GOCD_NOTIFY_CI_GOCDURL=\"https://gocd.psunicorncd.pgt.gaia\" \
+                                 -e GOCD_NOTIFY_CI_PIPELINENAME=\"${GO_PIPELINE_NAME}\" \
+                                 -e GOCD_NOTIFY_CI_PIPELINELABEL=\"${GO_PIPELINE_LABEL}\" \
+                                 -e GOCD_NOTIFY_CI_PIPELINECOUNTER=\"${GO_PIPELINE_COUNTER}\" \
+                                 -e GOCD_NOTIFY_CI_STAGENAME=\"${GO_STAGE_NAME}\" \
+                                 -e GOCD_NOTIFY_CI_STAGECOUNTER=\"${GO_STAGE_COUNTER}\" \
+                                 -e GOCD_NOTIFY_CI_JOBNAME=\"${GO_JOB_NAME}\" \
+                                 -e GOCD_NOTIFY_CI_TRIGGERUSER=\"${GO_TRIGGER_USER}\" \
+                                 -e GOCD_MSTEAMS_URL=\"${MSTEAMS_URL}\" \
+                                 gamesys-ps-private-docker-build.artifactory.gamesys.co.uk/boost/boost-gocd-tools:1.0 \
+                           \r\nfi"
+                    run_if: failed
+    parameters:
+      area_name: {{ generated_area_id }}
+      service_name: {{ generated_service_id }}
+      service_repo_path: git@github.gamesys.co.uk:PlayerServices/{{ generated_service_id }}.git
+      contracts_folder_path: src/contract/
+      git_email: dave.the.unicorn@gamesys.co.uk
+      git_name: Unicorn Automation
+      commit_message: "chore(nojira): auto update contracts"
+      service_docker_compose_env_file: contract-test/.pipeline.env
+      service_merge_contract_command: yarn && yarn merge-contracts

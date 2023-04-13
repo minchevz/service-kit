@@ -1,0 +1,26 @@
+{
+  "CACHE": {
+    "CACHE_PREFIX": {
+      "doc": "[Feature] sample.",
+      "default": "library-node",
+      "env": "CACHE_PREFIX"
+    },
+    "CACHE_TTL": {
+      "doc": "[Feature] sample.",
+      "default": 10,
+      "env": "CACHE_TTL"
+    },
+    "NODE_CACHE_OPTIONS": {
+      "stdTTL": {
+        "doc": "[Feature] stdTTL.",
+        "default": 0,
+        "env": "NODE_CACHE_StdTTL"
+      },
+      "checkperiod": {
+        "doc": "[Feature] checkperiod.node-cache default value is 600, 0 means no periodic check",
+        "default": 600,
+        "env": "NODE_CACHE_CHECK_PERIOD"
+      }
+    }
+  }
+}

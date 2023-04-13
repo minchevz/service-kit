@@ -1,0 +1,21 @@
+{
+  "name": "cache-loader",
+  "version": "2.34.1",
+  "private": true,
+  "description": "Example of using caching modules",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "build:example": "tsc",
+    "redis:start": "docker run --name redis -d -p 6379:6379 redis",
+    "redis:stop": "docker stop redis"
+  },
+  "dependencies": {
+    "@service-kit/cacher": "2.33.2",
+    "@service-kit/config-loader": "2.33.2",
+    "@service-kit/redis": "2.33.2",
+    "@service-kit/server": "2.34.1"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

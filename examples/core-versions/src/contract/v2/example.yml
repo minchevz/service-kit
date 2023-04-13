@@ -1,0 +1,40 @@
+---
+openapi: 3.0.0
+info:
+  title: example-service
+  version: 3.0.0
+  description: |-
+    This is a Example Microservice API Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io). We've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features.
+    Some useful links:
+    - [The repository](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions)
+    - [The source API definition](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions/src/contract)
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: PlayerServices/pegacorn
+
+tags:
+  - name: Site Section Game
+    description: Everything about Site Section Games
+  - name: Site Section
+    description: Everything about Site Sections
+
+paths:
+  /v2/sections/sitename/{sitename}/category/{category}/platform/{platform}:
+    $ref: './paths/Sections.yaml'
+  /v2/games/sitename/{sitename}/category/{category}/section/{section}/platform/{platform}:
+    $ref: './paths/SectionGames.yaml'
+
+components:
+  schemas:
+    Error:
+      title: Root Type for Error Response
+      description: Error response configuration for failed requests
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string

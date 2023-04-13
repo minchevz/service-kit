@@ -1,0 +1,47 @@
+format_version: 3
+pipelines:
+  service-kit-build:
+    group: Microservice_Libraries
+    label_template: ${COUNT}
+    lock_behavior: unlockWhenFinished
+    display_order: -1
+    materials:
+      git:
+        git: git@github.gamesys.co.uk:PlayerServices/service-kit.git
+        shallow_clone: false
+        auto_update: true
+        branch: master
+    stages:
+      - service:
+          fetch_materials: true
+          clean_workspace: true
+          keep_artifacts: false
+          approval:
+            type: success
+          jobs:
+            build-and-version:
+              timeout: 0
+              resources:
+                - node14
+              tasks:
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: "1"
+                    options:
+                      script: yarn docker:build
+                    run_if: passed
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: "1"
+                    options:
+                      script: docker run -t --rm service-kit yarn lintify
+                    run_if: passed
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: "1"
+                    options:
+                      script: "docker run -t --rm service-kit ./node_modules/.bin/lerna publish --yes"
+                    run_if: passed

@@ -1,0 +1,59 @@
+title: SectionGamesResponse
+description: Response of games defined for a particular venture, category and section
+type: array
+items:
+  type: object
+  properties:
+    name:
+      type: string
+    title:
+      type: string
+    dfgWeeklyImgUrlPattern:
+      type: string
+    gameSkin:
+      type: string
+    imgUrlPattern:
+      type: string
+    realUrl:
+      type: string
+    representativeColor:
+      type: string
+    size:
+      type: object
+    demoUrl:
+      type: string
+    isProgressiveJackpot:
+      type: boolean
+    progressiveBackgroundColor:
+      type: string
+    loggedOutImgUrlPattern:
+      type: string
+    sash:
+      type: object
+    videoUrlPattern:
+      type: string
+    tags:
+      type: array
+      items:
+        type: string
+    webComponentData:
+      type: object
+  example:
+    name: js-dfg-doubly-bubbly
+    title: Doubly Bubbly
+    dfgWeeklyImgUrlPattern: /api/content/dfg-backgrounds/weekly-progress/doubly-bubbly/scale-s%s/weekly-steps-tile-r%s-w%s.png
+    gameSkin: js-dfg-doubly-bubbly
+    imgUrlPattern: /api/content/gametiles/new-doubly-bubbly/scale-s%s/doubly-bubbly-tile-r%s-w%s.jpg
+    realUrl: /service/game/play/js-dfg-doubly-bubbly
+    representativeColor: '#000'
+    size: {
+      tall: true
+    }
+    demoUrl: url
+    isProgressiveJackpot: true
+    progressiveBackgroundColor: '#000'
+    loggedOutImgUrlPattern: url
+    sash: {}
+    videoUrlPattern: url
+    tags: []
+    webComponentData: {}

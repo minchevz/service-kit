@@ -1,0 +1,49 @@
+title: SectionsResponse
+description: Response of sections defined for a particular venture and category
+type: array
+items:
+  type: object
+  properties:
+    name:
+      type: string
+    sectionId:
+      type: string
+    recommendationId:
+      type: string
+    title:
+      type: string
+    href:
+      type: string
+    image:
+      type: string
+    videoUrl:
+      type: string
+    slides:
+      $ref: './SectionSlides.yaml'
+    layout:
+      $ref: './SectionLayout.yaml'
+  example:
+    layout:
+      header:
+        enabled: true
+      show:
+        loggedIn: false
+        loggedOut: true
+      type: normal
+      className: some-classname
+      carousel:
+        customs:
+          enabled: false
+          itemsPerColumn: 1
+          size:
+            tall: false
+            wide: false
+        settings:
+          autoplay: false
+          slidesToScroll: 1
+          slidesToShow: 1
+      highlight:
+        enabled: true
+        style:
+          backgroundColor: '#fff'
+      jackpots: ['1', '2', '3']

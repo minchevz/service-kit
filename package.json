@@ -1,0 +1,56 @@
+{
+  "name": "service-kit",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A toolkit for spinning up and configuring a microservice.",
+  "main": "index.js",
+  "repository": "git@github.gamesys.co.uk:PlayerServices/service-kit.git",
+  "author": "Gamesys",
+  "license": "MIT",
+  "scripts": {
+    "build": "lerna run build",
+    "watch": "lerna run watch --stream",
+    "commit": "git-cz",
+    "test": "lerna run test",
+    "lintify": "lerna run lintify",
+    "prettify": "prettier --write **/*.{js,ts,json}",
+    "lintfix": "eslint --fix --ext .ts .",
+    "docker:build": "./scripts/build.sh",
+    "reset": "lerna exec -- rm -rf node_modules && lerna exec -- rm -rf dist && lerna exec -- rm -rf lib && rm -rf node_modules",
+    "update": "lernaupdate",
+    "sonarqube": "sonar-scanner"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/jest": "^29.2.0",
+    "@typescript-eslint/eslint-plugin": "5.1.0",
+    "@typescript-eslint/parser": "5.1.0",
+    "@unicorn/eslint-config": "^8.7.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "8.0.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-you-dont-need-lodash-underscore": "^6.10.0",
+    "husky": "^4.3.0",
+    "jest": "^29.2.2",
+    "jest-sonar-reporter": "^2.0.0",
+    "lerna": "^3.22.1",
+    "lerna-update-wizard": "^0.17.8",
+    "lint-staged": "^10.5.1",
+    "prettier": "^2.2.1",
+    "ts-jest": "^29.0.3",
+    "typescript": "4.8.3"
+  },
+  "resolutions": {
+    "lodash": "^4.17.21",
+    "z-schema": "^5.0.1"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "examples/*"
+    ]
+  }
+}

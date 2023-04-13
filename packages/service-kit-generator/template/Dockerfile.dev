@@ -1,0 +1,24 @@
+FROM registry-redhat-io.artifactory.gamesys.co.uk/ubi8/nodejs-14
+
+USER root
+
+RUN yum install curl && curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn
+
+ENV PORT=3000
+ENV NODE_ENV=development
+
+WORKDIR /opt/app-root/
+
+COPY .npmrc ./
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY ./src ./src
+
+RUN yarn install
+
+EXPOSE ${PORT}
+
+USER default
+
+CMD ["npm","run","dev"]
+

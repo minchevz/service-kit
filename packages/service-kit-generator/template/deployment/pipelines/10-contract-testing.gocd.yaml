@@ -1,0 +1,98 @@
+format_version: 3
+pipelines:
+  {{ generated_service_id }}-contract-testing:
+    group: {{ generated_service_id }}
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      service-repo:
+        scm:
+        name: service-repo
+        shallow_clone: true
+        destination: service
+      contract-hub-repo:
+        git: git@github.gamesys.co.uk:PlayerServices/contract-hub.git
+        ignore:
+          - '**/*'
+        shallow_clone: false
+        auto_update: true
+        branch: master
+        destination: contract-hub
+    stages:
+      - defaultStage:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: true
+          approval:
+            type: success
+          environment_variables:
+            CONTRACT_TESTING_ENV_FILE_PATH: "#{service_docker_compose_env_file}"
+          secure_variables:
+          jobs:
+            defaultJob:
+              timeout: 0
+              resources:
+                - docker
+                - git
+                - node14
+              tasks:
+                - exec:
+                    arguments:
+                      - -c
+                      - cd contract-hub && git pull
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - docker-compose -f "service/#{service_docker_compose_file}" --env-file "service/#{service_docker_compose_env_file}" up --detach
+                    command: /bin/bash
+                    run_if: passed
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: '1'
+                    options:
+                      script: "set -e\
+                           \r\nsource \"service/#{service_docker_compose_env_file}\"\
+                           \r\nCONTAINERS=$(docker network inspect #{prism_network_name} --format '\{{range .Containers }}\{{ .Name }} \{{end}}')\
+                           \r\nSEPARATOR=' ' read -r -a CONTAINERS_ARRAY <<< \"$CONTAINERS\"\
+                           \r\nfor CONTAINER_NAME in \"${CONTAINERS_ARRAY[@]}\"\
+                           \r\ndo\
+                           \r\n  docker cp contract-hub/. \"$CONTAINER_NAME:#{prism_contracts_location}/${PRISM_CONTRACTS_FOLDER}\"\
+                           \r\n  docker exec $CONTAINER_NAME ls -lipaR\
+                           \r\ndone"
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - "cd service && #{service_build_command}"
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - "cd service && #{service_test_command}"
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - docker-compose -f "service/#{service_docker_compose_file}" --env-file "service/#{service_docker_compose_env_file}" logs
+                    command: /bin/bash
+                    run_if: any
+                - exec:
+                    arguments:
+                      - -c
+                      - docker-compose -f "service/#{service_docker_compose_file}" --env-file "service/#{service_docker_compose_env_file}" down --rmi all -v --remove-orphans
+                    command: /bin/bash
+                    run_if: any
+    parameters:
+      service_name: {{ generated_service_id }}
+      service_docker_compose_file: contract-test/docker-compose.yml
+      service_docker_compose_env_file: contract-test/.pipeline.env
+      service_build_command: yarn && yarn build
+      service_test_command: yarn test:contract
+      prism_network_name: contract-test_default
+      prism_contracts_location: /usr/src/prism/packages/cli

@@ -1,0 +1,65 @@
+get:
+  summary: getCategorySections
+  x-controller: v2/get
+  parameters:
+    - name: sitename
+      description: venture name
+      schema:
+        type: string
+      in: path
+      required: true
+    - name: category
+      description: category name
+      schema:
+        type: string
+      in: path
+      required: true
+    - name: platform
+      description: Device platform
+      schema:
+        type: string
+        enum: [desktop, tablet, phone]
+      in: path
+      required: true
+    - name: content-env
+      in: header
+      description: SCS content environment
+      schema:
+        type: string
+        default: master
+      required: false
+    - name: client-memberid
+      in: header
+      description: Chimera member id
+      schema:
+        type: string
+      required: false
+    - name: client-authtoken
+      in: header
+      description: Chimera member authentication token
+      schema:
+        type: string
+      required: false
+    - name: client-defaultlobby
+      in: header
+      description: Specify if response should avoid personalisation
+      schema:
+        type: string
+        enum: ['true', 'false']
+      required: false
+    - name: Cookie
+      in: header
+      description: Signifies a logged in member session id
+      schema:
+        type: string
+        default: SESSION-ID=<SESSION-ID>;
+      required: false
+  tags:
+    - Site Section
+  responses:
+    "200":
+      description: The response from the proxied URL.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Sections.yaml'

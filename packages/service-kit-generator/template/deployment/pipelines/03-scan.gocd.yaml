@@ -1,0 +1,32 @@
+---
+format_version: 3
+pipelines:
+  {{ generated_service_id }}-scan:
+    group: {{ generated_service_id }}
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      {{ generated_service_id }}-build:
+        pipeline: {{ generated_service_id }}-build
+        stage: build
+    stages:
+      - scan:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: false
+          approval:
+            type: success
+          jobs:
+            scan:
+              timeout: 0
+              resources:
+                - docker
+              tasks:
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: '1'
+                    options:
+                      script: "curl -x '10.149.16.141:3546' http://10.149.16.95:30085/v1/kv/versions/coreplatform/\\?recurse\\=true | jq -r '.[] | select(.Key == \"versions/coreplatform/ppc2/{{ generated_service_id }}\").Value'\r\n\r\nIMAGE_VERSION=$(eval curl -x '10.149.16.141:3546' http://10.149.16.95:30085/v1/kv/versions/coreplatform/\\?recurse\\=true | jq -r '.[] | select(.Key == \"versions/coreplatform/ppc2/{{ generated_service_id }}\").Value' | base64 -d)\r\n\r\necho $IMAGE_VERSION\r\n\r\nIMAGE_NAME=\"unicorn-docker.artifactory.gamesys.co.uk/{{ generated_service_id }}:$IMAGE_VERSION\"\r\n\r\necho $IMAGE_NAME\r\n\r\n\r\ndocker volume create --name {{ generated_service_id }}-volume && \\\r\ndocker run -d -u root -v {{ generated_service_id }}-volume:/opt/app-root/sec-scan --name {{ generated_service_id }}-container $IMAGE_NAME sleep infinity && \\\r\ndocker exec  {{ generated_service_id }}-container cp -r /opt/app-root/src/. /opt/app-root/sec-scan && \\\r\ndocker run --rm --name {{ generated_service_id }}-nexus-iq-scanner -v {{ generated_service_id }}-volume:/var/scan/app -e NEXUS_PROJECT_ID={{ generated_service_id }} unicorn-docker.artifactory.gamesys.co.uk/unicorn_nexusiq_scanner:1.1.21\r\nsleep 10\r\ndocker kill  {{ generated_service_id }}-container\r\nsleep 10\r\ndocker rm  {{ generated_service_id }}-container\r\ndocker volume rm {{ generated_service_id }}-volume"
+                    run_if: passed

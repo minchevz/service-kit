@@ -1,0 +1,19 @@
+{
+  "name": "server-basic",
+  "version": "2.34.1",
+  "private": true,
+  "description": "Example of loading configuration from a .env file",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "build:example": "tsc"
+  },
+  "dependencies": {
+    "@service-kit/server": "2.34.1",
+    "convict": "6.2.3",
+    "deepmerge": "^4.2.2",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "CACHE": {
+    "CACHE_PREFIX": {
+      "doc": "[Feature] sample.",
+      "default": "library-redis",
+      "env": "CACHE_PREFIX"
+    },
+    "REDIS_MONITOR": {
+      "doc": "[Feature] sample.",
+      "default": false,
+      "env": "REDIS_MONITOR"
+    },
+    "CACHE_TTL": {
+      "doc": "[Feature] sample.",
+      "default": null,
+      "env": "CACHE_TTL"
+    },
+    "REDIS": {
+      "REDIS_NAME": {
+        "doc": "[Feature] redisMasterName",
+        "default": "gms_redis",
+        "env": "NODE_REDIS_MASTER_NAME"
+      },
+      "REDIS_HOST": {
+        "doc": "[Feature] host.",
+        "default": "127.0.0.1",
+        "env": "REDIS_HOST"
+      },
+      "REDIS_PORT": {
+        "doc": "[Feature] port.",
+        "default": 6379,
+        "env": "REDIS_PORT"
+      },
+      "REDIS_PASSWORD": {
+        "doc": "[Feature] password.",
+        "default": "",
+        "env": "NODE_REDIS_MASTER_AUTH_PASSWORD"
+      },
+      "REDIS_MAX_RETRIES_PER_REQUEST": {
+        "doc": "[Feature] maxRetriesPerRequest.",
+        "default": 1,
+        "env": "REDIS_MAX_RETRIES_PER_REQUEST"
+      },
+      "REDIS_ENABLE_OFFLINE_QUEUE": {
+        "doc": "[Feature] enableOfflineQueue.",
+        "default": false,
+        "env": "REDIS_ENABLE_OFFLINE_QUEUE"
+      },
+      "SENTINEL_PASSWORD": {
+        "doc": "[Feature] sentinelPassword",
+        "default": "",
+        "env": "NODE_REDIS_SENTINEL_PASSWORD"
+      },
+      "sentinels": {
+        "0": {
+          "SENTINEL_HOST": {
+            "doc": "[Feature] redisSentinelUrl",
+            "default": "",
+            "env": "NODE_REDIS_SENTINEL_URL"
+          }
+        }
+      }
+    }
+  }
+}

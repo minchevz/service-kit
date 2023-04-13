@@ -1,0 +1,80 @@
+format_version: 3
+pipelines:
+  {{ generated_service_id }}-go-pr-nexus-scan:
+    group: {{ generated_service_id }}
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      {{ generated_service_id }}-pr:
+        scm:
+        name: {{ generated_service_id }}-pr
+        destination: {{ generated_service_id }}-pr
+        shallow_clone: true
+    environment_variables:
+      NPM_CONF_REG: registry=https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/
+      NPM_CONF_AUTH_ALWAYS: always-auth=true
+    secure_variables:
+      NPM_USER: AES:OyTfPufSGNv+SSDu54xROw==:mPHBnbimJjnznW4qjq6Uy9FltA0iSB1NRe0Tg0g+Gek=
+      NPM_PASS: AES:f5SpoI8+Y851I42DI52cCw==:QJEeyTubh5UVVA93VSc1lW4Pyk68Z+50YNEB975+U+Q=
+    stages:
+      - defaultStage:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: true
+          approval:
+            type: success
+          environment_variables:
+          secure_variables:
+          jobs:
+            defaultJob:
+              timeout: 0
+              resources:
+                - node14
+              tasks:
+                - exec:
+                    arguments:
+                      - -c
+                      - 'echo "USER INFO" &&
+                        echo "$NPM_CONF_REG" &&
+                        echo "$NPM_CONF_AUTH_ALWAYS" &&
+                        echo "$NPM_CONF_REG" > .npmrc &&
+                        echo "$NPM_CONF_AUTH_ALWAYS" >> .npmrc &&
+                        echo "//artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/:_authToken=$(curl -u$NPM_USER:$NPM_PASS -XPOST "https://artifactory.gamesys.co.uk/artifactory/api/security/token" -d username="$NPM_USER" -d "scope=member-of-groups:*" | jq -r ".access_token")" >> .npmrc &&
+                        docker build --rm -t nexus-scan-image:latest . &&
+                        docker volume create --name {{ generated_service_id }}-volume &&
+                        docker run -d -u root -v {{ generated_service_id }}-volume:/opt/app-root/sec-scan --name {{ generated_service_id }}-container nexus-scan-image:latest sleep infinity &&
+                        docker exec  {{ generated_service_id }}-container cp -r /opt/app-root/src/. /opt/app-root/sec-scan'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: {{ generated_service_id }}-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker run --rm --name {{ generated_service_id }}-nexus-iq-scanner -v {{ generated_service_id }}-volume:/var/scan/app -e NEXUS_PROJECT_ID={{ generated_service_id }} unicorn-docker.artifactory.gamesys.co.uk/unicorn_nexusiq_scanner:1.1.21 &&
+                         sleep 10'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: {{ generated_service_id }}-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker kill  {{ generated_service_id }}-container &&
+                         sleep 10 &&
+                         docker rm -f {{ generated_service_id }}-container &&
+                         docker volume rm -f {{ generated_service_id }}-volume &&
+                         docker rmi -f nexus-scan-image:latest'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: {{ generated_service_id }}-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker kill  {{ generated_service_id }}-container &&
+                         sleep 10 &&
+                         docker rm -f {{ generated_service_id }}-container &&
+                         docker rmi -f nexus-scan-image:latest &&
+                         docker volume rm -f {{ generated_service_id }}-volume'
+                    command: /bin/bash
+                    run_if: failed
+                    working_directory: {{ generated_service_id }}-pr

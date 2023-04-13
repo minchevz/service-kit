@@ -1,0 +1,39 @@
+---
+openapi: 3.0.1
+info:
+  title: Example API v3
+  description: Invalid path example
+  version: v3
+paths:
+  /v5/example:
+    get:
+      summary: Valid path.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: v3/get
+      tags:
+        - Example V5
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /v6/example2:
+    get:
+      summary: Invalid path.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: v3/get
+      tags:
+        - Example V5
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string

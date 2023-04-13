@@ -1,0 +1,16 @@
+{
+  "name": "config-loader-additional-schema",
+  "version": "2.33.2",
+  "private": true,
+  "description": "Example of loading additional configuration schemas",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "build:example": "tsc"
+  },
+  "dependencies": {
+    "@service-kit/config-loader": "2.33.2"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

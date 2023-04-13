@@ -1,0 +1,16 @@
+{
+  "name": "core-error-dictionaries",
+  "version": "2.34.1",
+  "private": true,
+  "description": "Example of loading custom language error dictionaries",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "build:example": "tsc"
+  },
+  "dependencies": {
+    "@service-kit/core": "2.34.1"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

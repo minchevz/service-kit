@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  prism_example_service_mock:
+    container_name: example_service_mock
+    image: stoplight/prism:4.10.1
+    command: 'mock -h 0.0.0.0 ${PRISM_CONTRACTS_FOLDER}/fixtures/example-service/example-service.yml'
+    volumes:
+      - ${CONTRACTS_LOCATION}/fixtures/example-service/:/usr/src/prism/packages/cli/${PRISM_CONTRACTS_FOLDER}/fixtures/example-service/:rw
+    ports:
+      - '${PRISM_PORT_EXAMPLE_SERVICE}:${PRISM_PORT_INTERNAL}'

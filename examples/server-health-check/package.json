@@ -1,0 +1,20 @@
+{
+  "name": "server-health-check",
+  "version": "2.34.1",
+  "private": true,
+  "description": "Example demonstration server for health checks /health/live",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "build:example": "tsc",
+    "redis:start": "docker run --name redis -d -p 6379:6379 redis",
+    "redis:stop": "docker stop redis"
+  },
+  "dependencies": {
+    "@service-kit/common": "2.33.2",
+    "@service-kit/logger": "2.33.2",
+    "@service-kit/server": "2.34.1"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

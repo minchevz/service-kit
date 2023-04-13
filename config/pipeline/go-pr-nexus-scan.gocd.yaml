@@ -1,0 +1,82 @@
+format_version: 3
+pipelines:
+  service-kit-go-pr-nexus-scan:
+    group: Microservice_Libraries
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      service-kit-pr:
+        scm: a4532895-1a5a-4c11-b3c2-ab8c25f283fd
+        name: service-kit-pr
+        destination: service-kit-pr
+        shallow_clone: true
+    environment_variables:
+      NPM_CONF_REG: registry=https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/
+      NPM_CONF_AUTH_ALWAYS: always-auth=true
+      NEXUS: true
+    secure_variables:
+      NPM_USER: AES:OyTfPufSGNv+SSDu54xROw==:mPHBnbimJjnznW4qjq6Uy9FltA0iSB1NRe0Tg0g+Gek=
+      NPM_PASS: AES:f5SpoI8+Y851I42DI52cCw==:QJEeyTubh5UVVA93VSc1lW4Pyk68Z+50YNEB975+U+Q=
+    stages:
+      - defaultStage:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: true
+          approval:
+            type: success
+          environment_variables:
+          secure_variables:
+          jobs:
+            defaultJob:
+              timeout: 0
+              resources:
+                - rpm
+              tasks:
+                - exec:
+                    arguments:
+                      - -c
+                      - 'echo "USER INFO" &&
+                        echo "$NPM_CONF_REG" &&
+                        echo "$NPM_CONF_AUTH_ALWAYS" &&
+                        echo "$NPM_CONF_REG" > .npmrc &&
+                        echo "$NPM_CONF_AUTH_ALWAYS" >> .npmrc &&
+                        echo "//artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/:_authToken=$(curl -u$NPM_USER:$NPM_PASS -XPOST "https://artifactory.gamesys.co.uk/artifactory/api/security/token" -d username="$NPM_USER" -d "scope=member-of-groups:*" | jq -r ".access_token")" >> .npmrc &&
+                        docker build --build-arg NEXUS=$NEXUS --rm -t sc-nexus-scan-image:latest -f config/Dockerfile . &&
+                        docker volume create --name sc-volume &&
+                        docker run -d -u root -v sc-volume:/opt/app-root/sec-scan --name sc-container sc-nexus-scan-image:latest sleep infinity &&
+                        docker exec  sc-container cp -r /usr/src/app/. /opt/app-root/sec-scan'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: service-kit-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker run --rm --name service-kit-nexus-iq-scanner -v sc-volume:/var/scan/app -e NEXUS_PROJECT_ID=service-kit unicorn-docker.artifactory.gamesys.co.uk/unicorn_nexusiq_scanner:1.1.21 &&
+                         sleep 10'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: service-kit-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker kill  sc-container &&
+                         sleep 10 &&
+                         docker rm -f sc-container &&
+                         docker volume rm -f sc-volume &&
+                         docker rmi -f sc-nexus-scan-image:latest'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: service-kit-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker kill  sc-container &&
+                         sleep 10 &&
+                         docker rm -f sc-container &&
+                         docker rmi -f sc-nexus-scan-image:latest &&
+                         docker volume rm -f sc-volume'
+                    command: /bin/bash
+                    run_if: failed
+                    working_directory: service-kit-pr
+

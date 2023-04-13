@@ -1,0 +1,16 @@
+{
+  "name": "logger-example",
+  "version": "2.33.2",
+  "private": true,
+  "description": "Example use of logger",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "build:example": "tsc"
+  },
+  "dependencies": {
+    "@service-kit/logger": "2.33.2"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

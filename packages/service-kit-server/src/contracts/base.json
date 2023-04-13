@@ -1,0 +1,183 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Service Contract",
+    "description": "Service API specification",
+    "version": "1.0.0",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "@PlayerServices/pegacorn"
+    }
+  },
+  "servers": [],
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Everything about Health Status"
+    },
+    {
+      "name": "Errors",
+      "description": "Everything about App Errors"
+    }
+  ],
+  "paths": {
+    "/health/enhanced": {
+      "get": {
+        "summary": "Returns the status of whether the application should be considered 'alive' by checking both internal and external dependencies.",
+        "x-controller": "src/controllers/live-check",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "A standard health status response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/enhanced/{level}": {
+      "get": {
+        "summary": "Returns the status of whether the application should be considered 'alive' for the specified check level.",
+        "x-controller": "src/controllers/enhanced-check",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "A standard health status response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "level",
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 2
+            },
+            "required": true,
+            "description": "Numeric health level"
+          }
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "summary": "Returns the status of whether the application should be considered 'alive'.",
+        "x-controller": "src/controllers/live-check",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "A standard health status response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "summary": "Returns the status of whether the application should be considered 'ready'.",
+        "x-controller": "src/controllers/ready-check",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "A standard health status response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/errors": {
+      "get": {
+        "summary": "Returns all the errors loaded by the application",
+        "x-controller": "src/controllers/errors",
+        "tags": ["Errors"],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthStatus": {
+        "properties": {
+          "healthy": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Errors": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/ErrorMap"
+        },
+        "example": {
+          "en": {
+            "stale_error": {
+              "status": 401,
+              "message": "Please relogin."
+            },
+            "internal_error": {
+              "status": 500,
+              "message": "Internal Error"
+            }
+          },
+          "es": {
+            "stale_error": {
+              "status": 401,
+              "message": "Entra en la cuenta."
+            }
+          }
+        }
+      },
+      "ErrorMap": {
+        "additionalProperties": {
+          "$ref": "#/components/schemas/Error"
+        }
+      },
+      "Error": {
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

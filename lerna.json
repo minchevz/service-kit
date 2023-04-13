@@ -1,0 +1,16 @@
+{
+  "version": "2.34.1",
+  "useWorkspaces": true,
+  "npmClient": "yarn",
+  "packages": [
+    "packages/*",
+    "examples/*"
+  ],
+  "command": {
+    "version": {
+      "conventionalCommits": true,
+      "exact": true,
+      "yes": true
+    }
+  }
+}

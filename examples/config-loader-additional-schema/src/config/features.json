@@ -1,0 +1,9 @@
+{
+  "Feature": {
+    "sample": {
+      "doc": "[Feature] sample.",
+      "default": false,
+      "env": "NODE_FEATURE_SAMPLE"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+title: SectionSlides
+description: List of section slides
+type: array
+items:
+  type: object
+  properties:
+    link:
+      type: string
+    image:
+      type: string
+    representativeColor:
+      type: string
+  example:
+    link: link
+    image: image.png
+    representativeColor: '#000'
