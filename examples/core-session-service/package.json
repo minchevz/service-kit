@@ -1,0 +1,40 @@
+{
+  "name": "core-session-service",
+  "version": "2.53.0",
+  "private": true,
+  "scripts": {
+    "prep": "npx husky install",
+    "start": "ts-node-dev --log-error --watch src/contract/*.yml src/index.ts",
+    "build": "npm run clean && tsc --pretty",
+    "build:prod": "tsc --pretty",
+    "copy": "copyfiles -u 1 src/contract/**/**/* src/contract/**/** dist && copyfiles -u 1 src/**/*.json dist",
+    "clean": "rimraf dist",
+    "dev:watch": "npx nodemon",
+    "dev": "node --inspect=5858 -r ts-node/register src/index.ts",
+    "test": "jest unit",
+    "test:watch": "yarn test --watch",
+    "test:integration": "EVENT_LOOP_DELAY=0 jest --forceExit --detectOpenHandles --no-cache --colors --collectCoverageFrom=src/controllers/** --coverage test/integration",
+    "test:integration:watch": "yarn test:integration --watch",
+    "docker:contract": "cd contract-test && source .env && docker compose up",
+    "test:contract": "EVENT_LOOP_DELAY=0 jest --forceExit --detectOpenHandles --no-cache test/contract",
+    "test:load": "k6 run -e SELECTED_ENDPOINT=getGameInfo -e SERVICE_ENV=INT test/load/stress_test.js",
+    "commit": "git-cz",
+    "lintify": "eslint --fix '**/*.{js,ts}'",
+    "prettify": "prettier --write **/*.{json,md,yml,yaml}",
+    "merge-contracts": "source ./contract-test/.env && ts-node-dev src/index.ts --contract-path ${MERGED_CONTRACT_PATH}",
+    "sonarqube:docker": "docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest",
+    "sonarqube:start": "sonar-scanner -Dproject.settings=./sonar-local.properties",
+    "sonarqube:stop": "docker stop sonarqube && docker rm sonarqube"
+  },
+  "dependencies": {
+    "@service-kit/core": "2.53.0",
+    "axios": "1.4.0"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.1.6"
+  },
+  "engines": {
+    "node": "18"
+  }
+}

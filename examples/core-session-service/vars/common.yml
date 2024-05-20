@@ -1,0 +1,60 @@
+---
+env_name: "{{ deploy_env }}"
+
+app_name: core-session-service
+app_selector_label: "{{ app_name }}-app"
+app_log_path_override: "/var/log/{{ app_name }}/app.log*"
+splunk_source_type: "k8s.{{ env_name }}"
+splunk_source_name_overwrite: 'logpath'
+service_port: 80
+probe_port: 3000
+kubes_suffix: ''
+
+k8s_maxSurge: 1
+k8s_maxUnavailable: 1
+
+liveness_probe_path: /health/live
+liveness_probe_port: 3000
+liveness_probe_initial_delay_seconds: 15
+liveness_probe_period_seconds: 120
+liveness_probe_timeout_seconds: 3
+liveness_probe_failure_threshold: 3
+
+readiness_probe_path: /health/ready
+readiness_probe_port: 3000
+readiness_probe_initial_delay_seconds: 15
+readiness_probe_period_seconds: 120
+readiness_probe_timeout_seconds: 3
+readiness_probe_failure_threshold: 3
+
+logger_resources:
+  resources:
+    limits:
+      cpu: "1"
+      memory: "500Mi"
+    requests:
+      cpu: "250m"
+      memory: "250Mi"
+
+logger_indexName: unicorn
+
+common_configmap:
+  APP_VERSION: ""
+  LOG_LEVEL: info
+  LOG_PATH: /var/log/core-session-service/app.log
+  PORT: 3000
+
+common_secrets:
+
+services:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: port-80-tcp
+
+ingress:
+  host: "{{ app_name }}.{{ internal_domain }}"
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/rewrite-target: /

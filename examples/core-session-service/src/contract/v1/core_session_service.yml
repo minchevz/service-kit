@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  title: core-session-service
+  version: "0.0.0"
+  description: |-
+    This is a core-session-service Microservice API Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io). We've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features.
+    Some useful links:
+    - [The repository](https://github.gamesys.co.uk/PlayerServices/)
+    - [The source API definition](https://github.gamesys.co.uk/PlayerServices/)
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: PlayerServices/pegacorn
+
+paths:
+  /example:
+    get:
+      summary: Returns a bunch of dummy data.
+      x-controller: example/get
+      tags:
+        - Example
+      responses:
+        "200":
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleResponse'
+
+components:
+  schemas:
+    ExampleResponse:
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: myName

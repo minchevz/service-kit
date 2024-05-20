@@ -106,7 +106,7 @@ jest.mock('../../../../src/utils/validation', () => ({
 }));
 
 jest.mock('../../../../src/utils/controllers', () => ({
-  loadController: jest.fn((param1, name) => mockControllers[name])
+  loadController: jest.fn((_, name) => mockControllers[name])
 }));
 
 const mockApp: ServerApp = new Koa();

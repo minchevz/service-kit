@@ -4,8 +4,7 @@ This package exports a ServiceKit module that allows redis caching functionality
 
 ## Getting started
 
-This module is compatible with Node 14+ and is distributed on artifactory.
-
+This module is compatible with Node 18+ and is distributed on artifactory.
 
 ```
 yarn add @service-kit/redis
@@ -25,7 +24,6 @@ import { redis } from '@service-kit/redis';
 ## Configuration
 
 All configuration can be specified by environment variables. Your config schema needs to have a top level `CACHE` property with the following details:
-
 
 ```js
 {
@@ -108,7 +106,6 @@ If you are running a cluster of Redis nodes, you will have to specify the config
 Additionally, if you want to pass in `redisOptions` through to the cluster constructor as per the [IORedis documentation](https://github.com/luin/ioredis/#cluster), you can also provide the `REDIS` config key (as per other examples) which will be mapped as usual.
 
 Each cluster node can have a port and password provided - by default the port is 6379 and the password is null. You can override these values on a node by node basis (as per the above example). The first node has a password, the second node doesn't - the second node has a custom port, the first doesn't.
-
 
 ## Sentinels
 

@@ -82,5 +82,5 @@ example:
   highlight:
     enabled: true
     style:
-      backgroundColor: '#fff'
-  jackpots: ['1', '2', '3']
+      backgroundColor: "#fff"
+  jackpots: ["1", "2", "3"]

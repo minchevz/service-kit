@@ -11,7 +11,7 @@ info:
     Some useful links:
     - [The repository](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions)
     - [The source API definition](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions/src/contract)
-  termsOfService: 'http://swagger.io/terms/'
+  termsOfService: "http://swagger.io/terms/"
   contact:
     name: PlayerServices/pegacorn
 
@@ -23,9 +23,9 @@ tags:
 
 paths:
   /v2/sections/sitename/{sitename}/category/{category}/platform/{platform}:
-    $ref: './paths/Sections.yaml'
+    $ref: "./paths/Sections.yaml"
   /v2/games/sitename/{sitename}/category/{category}/section/{section}/platform/{platform}:
-    $ref: './paths/SectionGames.yaml'
+    $ref: "./paths/SectionGames.yaml"
 
 components:
   schemas:

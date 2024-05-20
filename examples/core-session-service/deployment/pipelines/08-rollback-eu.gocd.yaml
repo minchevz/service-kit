@@ -1,0 +1,25 @@
+format_version: 3
+pipelines:
+  core-session-service-rollback-eu:
+    group: core-session-service
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    environment_variables:
+      MSTEAMS_URL: https://gamesys.webhook.office.com/webhookb2/9c45693c-b685-45e4-9a7e-a0222ad9e359@a2fb1bdc-71c6-43b3-b80d-de077d817707/IncomingWebhook/ae5dd4a9079a4e02a4de71960a9592c5/1ee6cfcf-2e3a-4a60-b0fe-0c463173716e
+    secure_variables:
+      password: AES:5wNEQHLWgdEh2NZLpGT/lw==:oKSwKSAUMO6mMAk9D4XdPFmtPStE2S67Kfhd7ybo3Y8=
+      gocd_agent_artifactory_password: AES:naqOGANUbGSuSSFDUiYZwQ==:E/C0A1eeReF9TVW5WYKfmLzT9xaCyEIn7f6kHyQxDFs=
+    materials:
+      core-session-service-deploy-ppc2:
+        pipeline: core-session-service-deploy-ppc2
+        stage: deploy
+    template: services-rollback
+    parameters:
+      cc_template_no: core-session-service - l1 - V3
+      deployment_name: core-session-service
+      deployment_version_alias: app
+      ticket_pipe: core-session-service-create-release-ticket-eu/core-session-service-deploy-ppc2
+      ticket_stage: raise
+      ticket_job: raise
+      deploy_env: live-eu

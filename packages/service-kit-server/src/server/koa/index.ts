@@ -1,33 +1,19 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import bodyParser from 'koa-bodyparser';
-import { IConfig, ILogger } from '@service-kit/common';
-import { ProtectionInstance } from 'overload-protection';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const overloadProtection = require('overload-protection');
+import { IConfig, ILogger, IWorkerConfig } from '@service-kit/common';
 
 import registerRoutes from './registerRoutes';
 import setSwaggerVersionsUi from './setSwaggerVersionsUi';
 import openAPI from '../../../src/middleware/open-api';
 import { errorHandler } from '../../../src/middleware/error-handler';
+import { contentfulBodyParser } from '../../middleware/contentful-body-parser';
 import { safeRedirect } from '../../../src/utils/safeRedirect';
-import logOverloadProtection from '../../utils/logOverloadProtection';
 import { loadErrorDictionaries } from '../../../src/utils/errors';
 import { Context, ServerOptions, KoaServer } from '../../../types';
 import isOpenApiError from '../../utils/isOpenApiError';
 import { OpenApiError } from '../../utils/openApiError';
-
-const defaultProtectionConfig = {
-  production: true, // if production is false, detailed error messages are exposed to the client
-  clientRetrySecs: 1, // Retry-After header, in seconds (0 to disable) [default 1]
-  sampleInterval: 5, // sample rate, milliseconds [default 5]
-  maxEventLoopDelay: 0, // maximum detected delay between event loop ticks [default 42]
-  maxHeapUsedBytes: 0, // maximum heap used threshold (0 to disable) [default 0]
-  maxRssBytes: 0, // maximum rss size threshold (0 to disable) [default 0]
-  errorPropagationMode: false, // dictate behavior: take over the response or propagate an error to the framework [default false]
-  logging: 'warn',
-  logStatsOnReq: true
-};
+import queueManagement from './queueManagement';
 
 const registerMiddleware = async (
   app: Koa<Koa.DefaultState, Koa.DefaultContext>,
@@ -35,6 +21,7 @@ const registerMiddleware = async (
   options: ServerOptions
 ) => {
   app.use(bodyParser());
+  app.use(contentfulBodyParser(logger));
   app.use(await openAPI(options, logger));
   app.use(errorHandler(logger));
   const { additionalMiddleware } = options;
@@ -51,15 +38,9 @@ export default async (
 ): Promise<KoaServer> => {
   const app = new Koa<Koa.DefaultState, Koa.DefaultContext>();
   const router = new Router<Koa.DefaultState, Context>();
-  const { errorDirectories = [] } = options;
-  const overloadProtectionConfig = {
-    ...defaultProtectionConfig,
-    maxEventLoopDelay: config.get('EVENT_LOOP_DELAY') || 0,
-    maxHeapUsedBytes: config.get('HEAP_USED_BYTES') || 0,
-    maxRssBytes: config.get('RSS_BYTES') || 0
-  };
+  const { errorDirectories = [], queueWorkerPaths = [], queues } = options;
+  const workerConfig: IWorkerConfig = config.get('WORKER_CONFIG');
 
-  app.use(overloadProtection('koa', overloadProtectionConfig));
   app.on('error', (error) => {
     if (error.message && isOpenApiError(error.message)) {
       const openApiError = new OpenApiError(error.message, error);
@@ -75,13 +56,10 @@ export default async (
     ...errorDirectories
   ]);
 
-  app.context.log = {
-    warn: (msg: ProtectionInstance | string) => {
-      if ((msg as ProtectionInstance).overload && (overloadProtectionConfig.maxEventLoopDelay | overloadProtectionConfig.maxHeapUsedBytes | overloadProtectionConfig.maxRssBytes)) {
-        logOverloadProtection(logger, msg);
-      }
-    }
-  };
+  if (config.get('QUEUE_ENABLED') && queueWorkerPaths && queues) {
+    logger.info('Enabling queue and queue-monitor dashboard.');
+    await queueManagement(queueWorkerPaths, queues, app, workerConfig);
+  }
 
   safeRedirect(app, logger);
 

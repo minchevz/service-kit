@@ -1,0 +1,6 @@
+---
+artifactory_repo: "unicorn-docker.artifactory.gamesys.co.uk"
+internal_domain: "stg.{{ env_name }}.pgt.gaia"
+k8s_replicas: 2
+
+configmap:

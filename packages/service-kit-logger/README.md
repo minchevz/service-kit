@@ -4,10 +4,10 @@ This package exports a function that will read in environment variables, sets sp
 
 ## Features
 
-* Logger id set based on app id/name.
-* DEV app environment runs with console.
-* PRODUCTION app environment generates a log file logs in with config values.
-* Sets colors for log types.
+- Logger id set based on app id/name.
+- DEV app environment runs with console.
+- PRODUCTION app environment generates a log file logs in with config values.
+- Sets colors for log types.
 
 ## Getting started
 
@@ -29,5 +29,4 @@ serviceKitLogger({
 logger.info('This is an info message', { extra: 'data' });
 logger.warn('This is a warning message', { get: 'ready' });
 logger.error('This is an error message', { error: 'details' });
-
 ```

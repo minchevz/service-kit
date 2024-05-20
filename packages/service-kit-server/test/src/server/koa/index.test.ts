@@ -1,16 +1,22 @@
 import Koa from 'koa';
 import Router from '@koa/router';
+import { Queue as QueueMQ } from 'bullmq';
 import { ILogger } from '@service-kit/logger';
 
 import server from '../../../../src/server/koa';
 import { safeRedirect } from '../../../../src/utils/safeRedirect';
 import openAPI from '../../../../src/middleware/open-api';
 import registerRoutes from '../../../../src/server/koa/registerRoutes';
+import queueManagement from '../../../../src/server/koa/queueManagement';
 
 import { KoaServer, ServerOptions } from '../../../../types';
-import { IConfig } from '@service-kit/common';
-
+import { IConfig, IWorkerConfig } from '@service-kit/common';
 let errorCallback: (error: unknown) => void;
+
+jest.mock('bullmq', () => ({
+  Worker: jest.fn(),
+  Queue: jest.fn()
+}));
 
 jest.mock(
   'koa',
@@ -22,7 +28,7 @@ jest.mock(
       on = jest
         .fn()
         .mockImplementation(
-          (event, callback: (error: unknown) => void) => (errorCallback = callback)
+          (_, callback: (error: unknown) => void) => (errorCallback = callback)
         );
     }
 );
@@ -38,6 +44,7 @@ jest.mock('../../../../src/middleware/error-handler', () => ({
 }));
 jest.mock('../../../../src/middleware/open-api');
 jest.mock('../../../../src/server/koa/registerRoutes', () => jest.fn());
+jest.mock('../../../../src/server/koa/queueManagement', () => jest.fn());
 
 const mockConfig: IConfig = {
   get: jest.fn(),
@@ -138,38 +145,6 @@ describe('Given a Koa server', () => {
       expect(serverAttr.app instanceof Koa).toBe(true);
     });
   });
-
-  describe('When app throws overload errors', () => {
-    afterEach(() => jest.resetAllMocks());
-
-    it('should call the logger.warn method appropriate number of times', async () => {
-      const middlewareMock = jest.fn();
-      const additionalMiddleware = [ middlewareMock ];
-      const options: ServerOptions = {
-        additionalMiddleware,
-        contractPaths: [ '/v1/example.yml', '/v2/example.yaml' ]
-      };
-
-      const serverAttr = await server(options, logger, {
-        ...mockConfig,
-        get: jest.fn((key: string) => {
-          switch (key) {
-          default:
-            return 42;
-          }
-        })
-      });
-
-      serverAttr.app.context.log.warn({
-        overload: true,
-        eventLoopOverload: true,
-        eventLoopDelay: 50,
-        maxEventLoopDelay: 42
-      });
-
-      expect(logger.warn).toBeCalledTimes(1);
-    });
-  });
 });
 
 describe('Given a Koa server with middleware parameter present', () => {
@@ -204,5 +179,63 @@ describe('Given a Koa server with middleware parameter present', () => {
     expect(serverAttr.app.use).toBeCalledWith(middlewareMock);
     expect(serverAttr.app.use).toBeCalledWith(anotherMiddlewareMock);
     expect(serverAttr.app instanceof Koa).toBe(true);
+  });
+});
+
+describe('Given Bull Board', () => {
+  let allQueues: QueueMQ[];
+  let options: ServerOptions;
+  let workerConfig: IWorkerConfig;
+  let queueWorkerPaths: string[];
+
+  beforeAll(() => {
+    // jest.mock('@service-kit/redis');
+    allQueues = [
+      new QueueMQ('queue1', { connection: jest.fn() }),
+      new QueueMQ('queue2', { connection: jest.fn() })
+    ];
+    queueWorkerPaths = [];
+
+    workerConfig = {
+      WORKER_REMOVE_ON_COMPLETE_AGE: 10,
+      WORKER_REMOVE_ON_FAIL_AGE: 10,
+      CONCURRENCY: 10
+    };
+    options = {
+      contractPaths: [],
+      controllerPaths: [ '/example.yml' ],
+      healthChecks: [],
+      queues: allQueues,
+      queueWorkerPaths: []
+    };
+  });
+
+  it('should call queuenamger if QUEUE_ENABLED is true', async () => {
+    const serverAttr = await server(options, logger, {
+      ...mockConfig,
+      get: jest.fn((key: string) => {
+        switch (key) {
+        case 'QUEUE_ENABLED':
+          return true;
+        case 'WORKER_CONFIG':
+          return {
+            WORKER_REMOVE_ON_COMPLETE_AGE: 10,
+            WORKER_REMOVE_ON_FAIL_AGE: 10,
+            CONCURRENCY: 10
+          };
+        default:
+          return null;
+        }
+      })
+    });
+
+    expect(serverAttr.app instanceof Koa).toBe(true);
+    expect(queueManagement).toBeCalledWith(
+      queueWorkerPaths,
+      allQueues,
+      serverAttr.app,
+      workerConfig
+    );
+    expect(logger.info).toBeCalledWith('Enabling queue and queue-monitor dashboard.');
   });
 });

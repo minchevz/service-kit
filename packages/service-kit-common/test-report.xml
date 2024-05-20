@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-common/test/src/error.test.ts">
+    <testCase name="ServiceKitError should have default error properties" duration="5"/>
+    <testCase name="ServiceKitError should be able to add extra data as context to errors" duration="1"/>
+    <testCase name="ServiceKitError when message or status is undefined should have default error properties" duration="1"/>
+    <testCase name="ServiceKitError when AXIOS RESPONSE CODE details provided should have default error properties and details" duration="1"/>
+    <testCase name="ServiceKitError when AXIOS RESPONSE CODE details provided when code is CERTS ISSUE should have correct status and properties" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-common/test/src/ServiceKitHttpError.test.ts">
+    <testCase name="ServiceKitHttpError should have default error properties" duration="4"/>
+    <testCase name="ServiceKitHttpError should be able to add extra data as context to errors" duration="0"/>
+    <testCase name="ServiceKitHttpError when AXIOS RESPONSE CODE details provided should have default error properties and details" duration="3"/>
+    <testCase name="ServiceKitHttpError when code is CERTS ISSUE should have correct status and properties" duration="0"/>
+    <testCase name="ServiceKitHttpError when response is not provided should have default error properties and details" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-common/test/src/ServiceKitCustomHttpError.test.ts">
+    <testCase name="ServiceKitCustomHttpError should have default error properties" duration="4"/>
+    <testCase name="ServiceKitCustomHttpError should set correct status" duration="0"/>
+    <testCase name="ServiceKitCustomHttpError should be able to add extra data as context to errors" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-common/test/src/ServiceKitApplicationError.test.ts">
+    <testCase name="ServiceKitApplicationError should have default error properties" duration="3"/>
+    <testCase name="ServiceKitApplicationError should be able to add extra data as context to errors" duration="2"/>
+  </file>
+</testExecutions>

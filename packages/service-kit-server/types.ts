@@ -2,6 +2,21 @@ import Koa, { Next, DefaultState, DefaultContext, Middleware } from 'koa';
 import Router from '@koa/router';
 import { IRoute } from './src/interfaces/contract-interfaces';
 import { Server } from 'http';
+import { Queue as QueueMQ } from 'bullmq';
+import { JwtPayload } from 'jsonwebtoken';
+
+export interface Context extends Koa.Context {
+  errors: IErrorMap;
+  contract: IRoute;
+  memberAuthSuccess?: boolean;
+  memberAuthToken?: ISessionToken | IChimeraAuthToken;
+}
+
+export interface ISessionToken extends JwtPayload {
+  memberId: number;
+  ventureName: string;
+  loginId: string;
+}
 
 interface IChimeraAuthToken {
   memberId: string;
@@ -13,13 +28,6 @@ interface IChimeraAuthToken {
   memberStop: string;
   geoLocationToken: string;
   [index: string]: string;
-}
-
-export interface Context extends Koa.Context {
-  errors: IErrorMap;
-  contract: IRoute;
-  memberAuthSuccess?: boolean;
-  memberAuthToken?: IChimeraAuthToken;
 }
 
 type KoaControllerResult = Promise<void> | void;
@@ -39,6 +47,8 @@ export interface ServerOptions {
   healthChecks?: PromiseFunc[];
   externalChecks?: PromiseFunc[];
   additionalMiddleware?: Middleware[];
+  queues?: QueueMQ[];
+  queueWorkerPaths?: string[];
 }
 
 export interface ServerExport {
@@ -111,7 +121,7 @@ export interface IErrorDictionary {
 }
 
 // URL validation types
-type UriError = 'INVALID_PROTOCOL_ERROR' | 'INVALID_URL_ERROR';
+type UriError = 'INVALID_PROTOCOL_ERROR' | 'Redirect Url Validation: Error: INVALID_URL_ERROR';
 
 export interface IUriError extends Error {
   message: UriError;

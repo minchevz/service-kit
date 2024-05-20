@@ -1,6 +1,6 @@
 import { IAjvSchema } from '../../types';
 
-const mockValidate = (data: any) => () => true;
+const mockValidate = () => () => true;
 
 const ajvSchemaMock: IAjvSchema = {
   '/v1/dummy/:id': {

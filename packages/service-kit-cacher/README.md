@@ -4,13 +4,13 @@ This package exports a ServiceKit module that allows redis and node memory cachi
 
 ## Features
 
-* Module provides only 3 main caching functions for redis and node-memory. GET,SET,DEL
-* By default it runs node-memory caching mechanism.
-* Requires configuration json and config loader to create a caching instance.
+- Module provides only 3 main caching functions for redis and node-memory. GET,SET,DEL
+- By default it runs node-memory caching mechanism.
+- Requires configuration json and config loader to create a caching instance.
 
 ## Getting started
 
-This module is compatible with Node 14+ and is distributed on artifactory.
+This module is compatible with Node 18+ and is distributed on artifactory.
 
 ```
 yarn add @service-kit/cacher
@@ -27,9 +27,10 @@ await redisLib.bootstrap(config, logger);
 import { redis } from '@service-kit/redis';
 ```
 
-And for usage of node-memory : 
+And for usage of node-memory :
+
 ```ts
-    await cacher.bootstrap(null, config, console);
+await cacher.bootstrap(null, config, console);
 ```
 
 ## Configuration
@@ -37,6 +38,7 @@ And for usage of node-memory :
 All configuration can be specified by environment variables. Your config schema needs to have a top level `CACHE` property with the following details:
 
 For Redis :
+
 ```js
 {
   "CACHE": {
@@ -81,8 +83,8 @@ For Redis :
 }
 ```
 
-
 For node memory :
+
 ```js
 "CACHE2": {
     "CACHE_PREFIX": {
@@ -113,7 +115,6 @@ For node memory :
 Additionally, if you want to pass in `redisOptions` through to the cluster constructor as per the [IORedis documentation](https://github.com/luin/ioredis/#cluster), you can also provide the `REDIS` config key (as per other examples) which will be mapped as usual.
 
 Each cluster node can have a port and password provided - by default the port is 6379 and the password is null. You can override these values on a node by node basis (as per the above example). The first node has a password, the second node doesn't - the second node has a custom port, the first doesn't.
-
 
 ## Sentinels
 

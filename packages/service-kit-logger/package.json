@@ -1,6 +1,6 @@
 {
   "name": "@service-kit/logger",
-  "version": "2.33.2",
+  "version": "2.53.0",
   "description": "Service Kit Logger",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,18 +8,18 @@
   "scripts": {
     "build": "tsc -b --pretty",
     "watch": "yarn build --watch",
-    "test": "jest --detectOpenHandles --no-cache --colors --coverage",
+    "test": "jest --colors",
     "test:watch": "yarn test --watchAll",
     "lintify": "eslint '**/*.{js,ts}' --fix"
   },
   "dependencies": {
-    "@service-kit/common": "2.33.2",
+    "@service-kit/common": "2.53.0",
     "winston": "^3.6.0",
     "winston-daily-rotate-file": "4.6.1"
   },
   "devDependencies": {
     "jest": "^29.2.2",
-    "ts-jest": "^29.0.3",
-    "typescript": "4.8.3"
+    "ts-jest": "^29.1.1",
+    "typescript": "5.1.6"
   }
 }

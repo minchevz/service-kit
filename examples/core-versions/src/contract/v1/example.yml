@@ -11,7 +11,7 @@ info:
     Some useful links:
     - [The repository](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions)
     - [The source API definition](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions/src/contract)
-  termsOfService: 'http://swagger.io/terms/'
+  termsOfService: "http://swagger.io/terms/"
   contact:
     name: PlayerServices/pegacorn
 
@@ -51,42 +51,42 @@ paths:
       tags:
         - Game
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameConfigData'
+                $ref: "#/components/schemas/GameConfigData"
           description: A JSON object of game config data
-        '400':
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /site/{sitename}/games/info/{name}:
     get:
       summary: Game Info Data
@@ -113,42 +113,42 @@ paths:
       tags:
         - Game
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameInfoData'
+                $ref: "#/components/schemas/GameInfoData"
           description: A JSON object of game info data
-        '400':
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /site/{sitename}/game-titles:
     get:
       summary: Game Titles Data
@@ -169,42 +169,42 @@ paths:
       tags:
         - Game
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameTitlesList'
+                $ref: "#/components/schemas/GameTitlesList"
           description: A JSON object of game info data
-        '400':
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /site/{sitename}/games/{miniGamesCategory}:
     get:
       summary: Returns a list of game data.
@@ -231,42 +231,42 @@ paths:
       tags:
         - Mini Game
       responses:
-        '200':
+        "200":
           description: List of games
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MiniGameList'
-        '400':
+                $ref: "#/components/schemas/MiniGameList"
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /site/{sitename}/games:
     get:
       summary: Returns a list of game data.
@@ -286,42 +286,42 @@ paths:
       tags:
         - Mini Game
       responses:
-        '200':
+        "200":
           description: List of games
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MiniGameList'
-        '400':
+                $ref: "#/components/schemas/MiniGameList"
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /site/{sitename}/games/search/{platform}:
     get:
       summary: Returns a list of searched game data.
@@ -347,42 +347,42 @@ paths:
       tags:
         - Game
       responses:
-        '200':
+        "200":
           description: List of searched games
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GamesSearchList'
-        '400':
+                $ref: "#/components/schemas/GamesSearchList"
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /categories/sitenames/{sitename}:
     get:
       summary: Returns a list of categories.
@@ -402,42 +402,42 @@ paths:
       tags:
         - Site Content
       responses:
-        '200':
+        "200":
           description: List of Categories definitions
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Categories'
-        '400':
+                $ref: "#/components/schemas/Categories"
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '503':
+                $ref: "#/components/schemas/Error"
+        "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '504':
+                $ref: "#/components/schemas/Error"
+        "504":
           description: Gateway Timeout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /sections/sitenames/{sitename}/categories/{category}/platforms/{platform}:
     get:
       deprecated: true
@@ -590,7 +590,7 @@ components:
         gameLoaderFileName: play-double-bubble-progressive
         vendor: gamesys
         gameName: play-double-bubble-progressive
-        minBet: '10'
+        minBet: "10"
         gameType: rgp
     GameInfoData:
       title: GameInfoResponse
@@ -646,14 +646,14 @@ components:
         minBet: 1p
         name: slot-double-bubble
         realUrl: /service/game/play/slot-double-bubble
-        representativeColor: '#B0E7D0'
+        representativeColor: "#B0E7D0"
         title: Double Bubble
     GameTitlesList:
       title: GameTitlesList
       description: List of Game Titles
       type: array
       items:
-        $ref: '#/components/schemas/GameTitle'
+        $ref: "#/components/schemas/GameTitle"
     GameTitle:
       properties:
         gameSkin:
@@ -668,13 +668,13 @@ components:
       description: List of Mini Games
       type: array
       items:
-        $ref: '#/components/schemas/MiniGamesSection'
+        $ref: "#/components/schemas/MiniGamesSection"
     MiniGamesSection:
       properties:
         carousel: {}
         games:
           items:
-            $ref: '#/components/schemas/MiniGame'
+            $ref: "#/components/schemas/MiniGame"
           type: array
         name:
           type: string
@@ -755,7 +755,7 @@ components:
             - format: png
             - pattern: /api/content/categories/homepage/scale-s%s/homepage-icon.png
           background:
-            color: '#FFFFFF'
+            color: "#FFFFFF"
             url: /api/content/backgrounds/scale-1/desktop.jpg
           availability:
             - native-*
@@ -779,7 +779,7 @@ components:
           loggedInOnly:
             type: boolean
         example:
-          categories: [ "Free" ]
+          categories: ["Free"]
           name: homepage
           title: dfg-doubly-bubbly-grid
           imgUrlPattern: /api/content/gametiles/doubly-bubbly/scale-s%s/doubly-bubbly-tile-r%s-w%s.jpg

@@ -3,6 +3,177 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.53.0](https://gitlab.ballys.tech/excite/unicorn/applications/service-kit/compare/v2.52.2...v2.53.0) (2024-05-10)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.52.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.51.0...v2.52.0) (2023-10-16)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.51.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.50.0...v2.51.0) (2023-10-13)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.50.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.49.0...v2.50.0) (2023-10-13)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.49.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.48.0...v2.49.0) (2023-10-13)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.48.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.47.0...v2.48.0) (2023-10-13)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.47.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.46.0...v2.47.0) (2023-10-12)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.46.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.45.0...v2.46.0) (2023-10-12)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.45.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.44.0...v2.45.0) (2023-10-04)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.43.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.42.0...v2.43.0) (2023-07-19)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.41.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.40.1...v2.41.0) (2023-07-06)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+## [2.40.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.40.0...v2.40.1) (2023-07-06)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.40.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.39.0...v2.40.0) (2023-07-06)
+
+
+### Features
+
+* **nojira-improve:** improving libs and codebase ([#285](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/285)) ([d84506a](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/d84506afe0b50cebf2f267cb24499595810c21dd))
+
+
+
+
+
+# [2.39.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.38.1...v2.39.0) (2023-07-05)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+## [2.38.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.38.0...v2.38.1) (2023-05-23)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.38.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.36.2...v2.38.0) (2023-05-18)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+## [2.36.2](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.36.1...v2.36.2) (2023-05-16)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+## [2.36.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.36.0...v2.36.1) (2023-04-25)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.36.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.35.4...v2.36.0) (2023-04-25)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+## [2.35.4](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.35.3...v2.35.4) (2023-04-25)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
+# [2.35.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.34.1...v2.35.0) (2023-04-14)
+
+**Note:** Version bump only for package server-health-check
+
+
+
+
+
 ## [2.34.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.34.0...v2.34.1) (2023-04-12)
 
 **Note:** Version bump only for package server-health-check

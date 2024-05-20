@@ -1,44 +1,29 @@
 {
-  "CACHE2": {
+  "CACHE": {
     "CACHE_PREFIX": {
-      "doc": "[Feature] sample.",
+      "doc": "[Feature] cachePrefix.",
       "default": "library-redis",
       "env": "CACHE_PREFIX"
     },
     "REDIS_MONITOR": {
-      "doc": "[Feature] sample.",
+      "doc": "[Feature] redisMonitor.",
       "default": false,
       "env": "REDIS_MONITOR"
     },
-    "CACHE_TTL": {
-      "doc": "[Feature] sample.",
-      "default": null,
-      "env": "CACHE_TTL"
-    },
     "REDIS": {
       "REDIS_NAME": {
-        "doc": "[Feature] name.",
+        "doc": "[Feature] redisMasterName",
         "default": "gms_redis",
-        "env": "REDIS_NAME"
-      },
-      "REDIS_HOST": {
-        "doc": "[Feature] host.",
-        "default": "127.0.0.1",
-        "env": "REDIS_HOST"
-      },
-      "REDIS_PORT": {
-        "doc": "[Feature] port.",
-        "default": 6379,
-        "env": "REDIS_PORT"
+        "env": "NODE_REDIS_MASTER_NAME"
       },
       "REDIS_PASSWORD": {
         "doc": "[Feature] password.",
-        "default": null,
-        "env": "REDIS_PASSWORD"
+        "default": "",
+        "env": "NODE_REDIS_MASTER_AUTH_PASSWORD"
       },
       "REDIS_MAX_RETRIES_PER_REQUEST": {
         "doc": "[Feature] maxRetriesPerRequest.",
-        "default": 1,
+        "default": null,
         "env": "REDIS_MAX_RETRIES_PER_REQUEST"
       },
       "REDIS_ENABLE_OFFLINE_QUEUE": {
@@ -46,10 +31,25 @@
         "default": false,
         "env": "REDIS_ENABLE_OFFLINE_QUEUE"
       },
+      "SENTINEL_PASSWORD": {
+        "doc": "[Feature] sentinelPassword",
+        "default": "",
+        "env": "NODE_REDIS_SENTINEL_PASSWORD"
+      },
       "SENTINEL_HOST_0": {
         "doc": "[Feature] sentinel host 0.",
         "default": "",
-        "env": "REDIS_SENTINEL_HOST_0"
+        "env": "NODE_REDIS_SENTINEL_HOST_0"
+      },
+      "SENTINEL_HOST_1": {
+        "doc": "[Feature] sentinel host 1.",
+        "default": "",
+        "env": "NODE_REDIS_SENTINEL_HOST_1"
+      },
+      "SENTINEL_HOST_2": {
+        "doc": "[Feature] sentinel host 2.",
+        "default": "",
+        "env": "NODE_REDIS_SENTINEL_HOST_2"
       }
     }
   }

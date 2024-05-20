@@ -13,4 +13,4 @@ items:
   example:
     link: link
     image: image.png
-    representativeColor: '#000'
+    representativeColor: "#000"

@@ -11,7 +11,7 @@ info:
     Some useful links:
     - [The repository](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions)
     - [The source API definition](https://github.gamesys.co.uk/PlayerServices/service-kit/tree/master/examples/core-versions/src/contract)
-  termsOfService: 'http://swagger.io/terms/'
+  termsOfService: "http://swagger.io/terms/"
   contact:
     name: PlayerServices/pegacorn
 

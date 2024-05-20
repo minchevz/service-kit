@@ -17,10 +17,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: string
-
+                type: object
   /example-memory:
     get:
       summary: Returns a bunch of dummy data.
@@ -54,3 +51,27 @@ paths:
                 type: array
                 items:
                   type: string
+
+  /example-queue:
+    post:
+      summary: Returns a bunch of dummy data.
+      description: Optional extended description in CommonMark or HTML.
+
+      x-controller: example-queue/queue
+      tags:
+        - Example
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              type: object
+
+        required: true
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: object

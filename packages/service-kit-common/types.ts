@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+import { Queue as QueueMQ, Job } from 'bullmq';
 export interface LogMethod {
   (message: string, meta?: unknown): ILogger;
 }
@@ -52,3 +52,35 @@ export interface IRedisCacher {
   setex: (key: string, ttl: number, data: string) => void;
   del: (deleteTargets: string[] | string) => void;
 }
+
+export interface IQueueName {
+  [key: string]: string;
+}
+
+export interface IWorkerFunction {
+  (job: Job): Promise<IQueueJobResponse>;
+}
+export interface IQueueWorkerMapping {
+  [key: string]: IWorkerFunction;
+}
+
+export interface IQueueClient {
+  [key: string]: QueueMQ;
+}
+
+export interface IQueueJobResponse {
+  queueMetaData?: object;
+  status: string;
+}
+export interface IWorkerConfig {
+  WORKER_REMOVE_ON_COMPLETE_AGE: number;
+  WORKER_REMOVE_ON_FAIL_AGE: number;
+  CONCURRENCY: number;
+}
+export interface IQueueConfig {
+  QUEUE_REMOVE_ON_COMPLETE_AGE: number;
+  QUEUE_REMOVE_ON_FAIL_AGE: number;
+  MAX_NUMBER_OF_JOBS_ON_DASHBOARD: number;
+}
+
+export type ConnectionOptions = any;

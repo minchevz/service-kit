@@ -20,3 +20,28 @@ paths:
                 type: array
                 items:
                   type: string
+  /example-post:
+    post:
+      summary: Returns a bunch of dummy data.
+      description: Optional extended description in CommonMark or HTML.
+      x-controller: example/post
+      tags:
+        - Example
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/vnd.contentful.management.v1+json:
+            schema:
+              type: object
+          application/json:
+            schema:
+              type: object
+
+        required: true
+      responses:
+        "200": # status code
+          description: A JSON array of dummy data
+          content:
+            application/json:
+              schema:
+                type: object

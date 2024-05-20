@@ -40,7 +40,7 @@ pipelines:
               resources:
                 - docker
                 - git
-                - node14
+                - node18
               tasks:
                 - plugin:
                     configuration:

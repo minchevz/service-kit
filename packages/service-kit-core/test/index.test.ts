@@ -37,7 +37,7 @@ jest.mock('@service-kit/server', () => ({
 }));
 jest.mock('../src/utils/modules');
 
-describe('The ServiceKit Core Module', () => {
+describe('The ServiceKit  Core Module', () => {
   const bootstrapMock = jest.spyOn(moduleUtils, 'bootstrap');
 
   afterEach(() => {

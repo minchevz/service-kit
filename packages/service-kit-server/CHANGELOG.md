@@ -3,6 +3,224 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.53.0](https://gitlab.ballys.tech/excite/unicorn/applications/service-kit/compare/v2.52.2...v2.53.0) (2024-05-10)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+# [2.52.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.51.0...v2.52.0) (2023-10-16)
+
+
+### Features
+
+* **gtech-1287775:** handle no memberid ([#313](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/313)) ([4014002](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/4014002532b31690e135c144d8a1ff9d470764c0))
+
+
+
+
+
+# [2.51.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.50.0...v2.51.0) (2023-10-13)
+
+
+### Features
+
+* **gtech-1287775:** update error log ([#312](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/312)) ([6f58755](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/6f587558d3cb002f854ecf4ba790d2c006bc29e3))
+
+
+
+
+
+# [2.50.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.49.0...v2.50.0) (2023-10-13)
+
+
+### Features
+
+* **gtech-1287775:** decode jwt without key ([#311](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/311)) ([bf128fc](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/bf128fcc0c5784850b5d7a5d29925d8c6b09346a))
+
+
+
+
+
+# [2.49.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.48.0...v2.49.0) (2023-10-13)
+
+
+### Features
+
+* **gtech-1287775:** update yarn lock ([#310](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/310)) ([2e0b2a0](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/2e0b2a090d9f74ce3bb1ac13cedab2c9af138ab1))
+
+
+
+
+
+# [2.48.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.47.0...v2.48.0) (2023-10-13)
+
+
+### Features
+
+* **gtech-1287775:** decode jwt ([#309](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/309)) ([1c14a10](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/1c14a1045e1b29cf4560d295c238ab59a6a4c795))
+
+
+
+
+
+# [2.47.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.46.0...v2.47.0) (2023-10-12)
+
+
+### Features
+
+* **gtech-1287775:** cleanup chimera auth middleware ([#308](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/308)) ([1aa55ae](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/1aa55ae7c80aee43c047f2975b223cdfc9f35cf8))
+* **gtech-1287775:** cleanup yarn ([#305](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/305)) ([ed0e265](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/ed0e265b1c96f5766027f0c892b0eb7b287d5d68))
+* **gtech-1287775:** update examples ([#302](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/302)) ([3242665](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/32426655d097f0cbf2d39568b1f9c42bc6939587))
+
+
+### Reverts
+
+* Revert "feat(gtech-1287775): cleanup yarn (#305)" (#307) ([b9e3215](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/b9e3215e453725aaeee80baeec17ae2cc41ab894)), closes [#305](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/305) [#307](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/307)
+* Revert "feat(gtech-1287775): update examples (#302)" (#303) ([a34715f](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/a34715fbb5fa712737a5bca27dbe16fafce9a699)), closes [#302](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/302) [#303](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/303)
+
+
+
+
+
+# [2.46.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.45.0...v2.46.0) (2023-10-12)
+
+
+### Features
+
+* **gtech-1286775:** update auth middlewares ([#301](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/301)) ([689deac](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/689deacbfd3ae3f7be89f1fecba19dc34acb398c))
+
+
+
+
+
+# [2.45.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.44.0...v2.45.0) (2023-10-04)
+
+
+### Features
+
+* **gtech-1287775:** update auth server middleware to use session-service ([#299](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/299)) ([1503f21](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/1503f2157f07fcf33321d3f85a9883038c28f5ac))
+
+
+
+
+
+# [2.43.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.42.0...v2.43.0) (2023-07-19)
+
+
+### Features
+
+* **gtech-1279591-lib:** Optimize Services libraries to latest ([#294](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/294)) ([c63df42](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/c63df42d21af1e79587e77407da47f9177a5e750))
+
+
+
+
+
+# [2.41.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.40.1...v2.41.0) (2023-07-06)
+
+
+### Features
+
+* **gtech-1279591:** Optimize Services' libraries to latest ([#292](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/292)) ([50cb4c9](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/50cb4c914a781c2c724366d0668f6f76fa865d2f))
+
+
+
+
+
+## [2.40.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.40.0...v2.40.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* **nojira-versionupgrades:** version upgrades ([#291](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/291)) ([5291d1b](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/5291d1ba83d01fdeb54fb1ffdae5f2430ff25879))
+
+
+
+
+
+# [2.40.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.39.0...v2.40.0) (2023-07-06)
+
+
+### Features
+
+* **nojira-improve:** improving libs and codebase ([#285](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/285)) ([d84506a](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/d84506afe0b50cebf2f267cb24499595810c21dd))
+
+
+
+
+
+# [2.39.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.38.1...v2.39.0) (2023-07-05)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+## [2.38.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.38.0...v2.38.1) (2023-05-23)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+# [2.38.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.36.2...v2.38.0) (2023-05-18)
+
+
+### Features
+
+* **gtech-1263585:** upgrade service-kit to node 18 ([#279](https://github.gamesys.co.uk/PlayerServices/service-kit/issues/279)) ([6a85566](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/6a855663e2f40f753afb164715ce8f5bea847c39))
+
+
+
+
+
+## [2.36.2](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.36.1...v2.36.2) (2023-05-16)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+## [2.36.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.36.0...v2.36.1) (2023-04-25)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+# [2.36.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.35.4...v2.36.0) (2023-04-25)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+## [2.35.4](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.35.3...v2.35.4) (2023-04-25)
+
+**Note:** Version bump only for package @service-kit/server
+
+
+
+
+
+# [2.35.0](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.34.1...v2.35.0) (2023-04-14)
+
+
+### Features
+
+* **sonarqube:** updating configurations for sonarqube ([94018f2](https://github.gamesys.co.uk/PlayerServices/service-kit/commit/94018f2910131703c0cb2b6b5f16f8db4e378c42))
+
+
+
+
+
 ## [2.34.1](https://github.gamesys.co.uk/PlayerServices/service-kit/compare/v2.34.0...v2.34.1) (2023-04-12)
 
 

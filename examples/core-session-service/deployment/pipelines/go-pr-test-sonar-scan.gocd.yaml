@@ -1,0 +1,95 @@
+format_version: 3
+pipelines:
+  core-session-service-go-pr-test-sonar-scan:
+    group: core-session-service
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      core-session-service-pr:
+        scm:
+        name: core-session-service-pr
+        destination: core-session-service-pr
+        shallow_clone: true
+    secure_variables:
+      SONAR_LOGIN_TOKEN: AES:65Spuc9G3+wjO2tNKBB52w==:TfD3j9OkN5A0HHkIBCeRrjuB7JUJ8KUxgYzklw4RH3iSt3tcKQsSJ9y9ZnWMy2Wi
+    stages:
+      - defaultStage:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: true
+          approval:
+            type: success
+          environment_variables:
+          secure_variables:
+          jobs:
+            defaultJob:
+              timeout: 0
+              resources:
+                - node18
+              tasks:
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn -v
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn cache clean
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn install --frozen-lockfile --network-timeout 1000000000
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn run build
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn test -- --ci
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'git clone  --no-checkout git@github.gamesys.co.uk:PlayerServices/gocd-pr-check-tools.git &&
+                        cd gocd-pr-check-tools &&
+                        git checkout origin/main sonarqube.sh &&
+                        chmod +x sonarqube.sh &&
+                        mv sonarqube.sh ../ &&
+                        git checkout origin/main sonarqube_analysis.sh &&
+                        chmod +x sonarqube_analysis.sh &&
+                        mv sonarqube_analysis.sh ../ &&
+                        cd .. &&
+                        rm -rf gocd-pr-check-tools'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - ./sonarqube_analysis.sh $PWD
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - ./sonarqube.sh
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr

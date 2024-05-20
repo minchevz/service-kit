@@ -205,7 +205,7 @@ Load testing requires k6, install with homebrew:
   The repo is using [husky](https://github.com/typicode/husky) to run pre-commit and pre-push hooks.
   Ths husky configuration can be found in `.huskyrc`
 
-  Linting is run on pre-commit using [lint-staged](https://github.com/okonet/lint-staged#readme) configuration for it lives in `.lintstagedrc`) and lints all .js/.ts and .yaml files in the repo.
+  Linting is run on pre-commit and lints all .js/.ts and .yaml files in the repo.
   Linting .yml uses [yamllint](https://yamllint.readthedocs.io/en/stable/) with the configuration for it being in `yamllint-cofig.yaml` which is modifying the relaxed ruleset for linting yaml.
 
   Additional rules for formatting yaml files are enforced in the `.editorconfig` living in the repo root. this will be used by the editor when modifying yaml files.

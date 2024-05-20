@@ -26,7 +26,7 @@ pipelines:
             defaultJob:
               timeout: 0
               resources:
-                - node14
+                - node18
               tasks:
                 - exec:
                     arguments:

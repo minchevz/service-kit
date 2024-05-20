@@ -1,0 +1,32 @@
+---
+format_version: 3
+pipelines:
+  core-session-service-scan:
+    group: core-session-service
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      core-session-service-build:
+        pipeline: core-session-service-build
+        stage: build
+    stages:
+      - scan:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: false
+          approval:
+            type: success
+          jobs:
+            scan:
+              timeout: 0
+              resources:
+                - docker
+              tasks:
+                - plugin:
+                    configuration:
+                      id: script-executor
+                      version: '1'
+                    options:
+                      script: "curl -x '10.149.16.141:3546' http://10.149.16.95:30085/v1/kv/versions/coreplatform/\\?recurse\\=true | jq -r '.[] | select(.Key == \"versions/coreplatform/ppc2/core-session-service\").Value'\r\n\r\nIMAGE_VERSION=$(eval curl -x '10.149.16.141:3546' http://10.149.16.95:30085/v1/kv/versions/coreplatform/\\?recurse\\=true | jq -r '.[] | select(.Key == \"versions/coreplatform/ppc2/core-session-service\").Value' | base64 -d)\r\n\r\necho $IMAGE_VERSION\r\n\r\nIMAGE_NAME=\"unicorn-docker.artifactory.gamesys.co.uk/core-session-service:$IMAGE_VERSION\"\r\n\r\necho $IMAGE_NAME\r\n\r\n\r\ndocker volume create --name core-session-service-volume && \\\r\ndocker run -d -u root -v core-session-service-volume:/opt/app-root/sec-scan --name core-session-service-container $IMAGE_NAME sleep infinity && \\\r\ndocker exec  core-session-service-container cp -r /opt/app-root/src/. /opt/app-root/sec-scan && \\\r\ndocker run --rm --name core-session-service-nexus-iq-scanner -v core-session-service-volume:/var/scan/app -e NEXUS_PROJECT_ID=core-session-service unicorn-docker.artifactory.gamesys.co.uk/unicorn_nexusiq_scanner:1.1.21\r\nsleep 10\r\ndocker kill  core-session-service-container\r\nsleep 10\r\ndocker rm  core-session-service-container\r\ndocker volume rm core-session-service-volume"
+                    run_if: passed

@@ -4,8 +4,8 @@ export class ServiceKitHttpError extends Error {
   operationalError: boolean;
   programmerError: boolean;
   isAxiosError: boolean;
-  details = {};
-  request?: Record<string, unknown>;
+  details?: unknown;
+  request?: unknown;
 
   constructor(message: string, error: AxiosError) {
     super(message);
@@ -24,11 +24,11 @@ export class ServiceKitHttpError extends Error {
     this.isAxiosError = error.isAxiosError || false;
     this.request = {
       isTimeoutError,
-      ...error.response?.statusText && { statusText: error.response?.statusText },
-      ...error.config?.baseURL && { baseUrl: error.config.baseURL },
-      ...error.config?.url && { url: error.config.url },
-      ...error.config?.headers && { headers: error.config.headers }
+      ...(error.response?.statusText && { statusText: error.response?.statusText }),
+      ...(error.config?.baseURL && { baseUrl: error.config.baseURL }),
+      ...(error.config?.url && { url: error.config.url }),
+      ...(error.config?.headers && { headers: error.config.headers }),
+      ...(error.config?.params && { params: error.config.params })
     };
   }
 }
-

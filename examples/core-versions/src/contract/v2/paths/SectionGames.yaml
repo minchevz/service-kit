@@ -34,4 +34,4 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/SectionGames.yaml'
+            $ref: "../schemas/SectionGames.yaml"

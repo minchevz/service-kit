@@ -1,0 +1,25 @@
+{
+  "name": "@service-kit/queue",
+  "version": "2.53.0",
+  "description": "Queue Module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b --pretty",
+    "watch": "yarn build --watch",
+    "test": "jest --colors",
+    "test:watch": "yarn test --watchAll",
+    "lintify": "eslint '**/*.{js,ts}' --fix"
+  },
+  "devDependencies": {
+    "jest": "^29.2.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@service-kit/common": "2.53.0",
+    "@service-kit/redis": "2.53.0",
+    "bullmq": "^3.12.0"
+  }
+}

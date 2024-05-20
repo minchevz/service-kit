@@ -29,7 +29,7 @@ export const extractParams = (ctx: Context): ICtxRequestParams => ({
   headers: ctx.request.req.headers,
   params: ctx.params,
   query: ctx.query,
-  body: ctx.request.body
+  body: ctx.request.body as IRequestObject
 });
 
 export const validateBody = (
@@ -64,7 +64,7 @@ export const validateParams = (
       return acc;
     },
     {}
-  ) as IRequestObject;
+  );
 
   const isParametersMatch = schemaEndpoint.parameters?.validate?.({
     query: requestOptions.query,

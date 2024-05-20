@@ -1,0 +1,19 @@
+{
+  "name": "aws-opensearch-core",
+  "version": "2.53.0",
+  "private": true,
+  "description": "Example of using caching modules",
+  "scripts": {
+    "start": "ts-node-dev --log-error --watch src/contract/*.yml src/index.ts",
+    "build:example": "tsc",
+    "redis:start": "docker run --name redis -d -p 6379:6379 redis",
+    "redis:stop": "docker stop redis"
+  },
+  "dependencies": {
+    "@service-kit/core": "2.53.0",
+    "@service-kit/opensearch": "2.53.0"
+  },
+  "devDependencies": {
+    "ts-node-dev": "2.0.0"
+  }
+}

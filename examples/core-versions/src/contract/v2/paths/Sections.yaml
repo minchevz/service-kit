@@ -45,7 +45,7 @@ get:
       description: Specify if response should avoid personalisation
       schema:
         type: string
-        enum: ['true', 'false']
+        enum: ["true", "false"]
       required: false
     - name: Cookie
       in: header
@@ -62,4 +62,4 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/Sections.yaml'
+            $ref: "../schemas/Sections.yaml"

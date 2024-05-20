@@ -260,3 +260,4 @@ test-report.xml
 
 # Merged contract file
 src/contract/{{ generated_service_id }}.yml
+.scannerwork

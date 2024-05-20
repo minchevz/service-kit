@@ -30,9 +30,7 @@ export const loadContracts = async (
   const newswaggerParserSettledResults = (await Promise.allSettled(swaggerParserResultPromises)).map((contract)=>{
     if (contract.status === REJECTED) {
       // If there are any rejected promises (i.e. invalid open api contracts), log the error
-      const invalidContract = contract as PromiseRejectedResult;
-
-      logger.error(`Invalid OpenAPI contract - ${ invalidContract.reason }`);
+      logger.error(`Invalid OpenAPI contract - ${ contract.reason }`);
       throw new Error('Invalid OpenAPI contract');
     }
 
@@ -78,6 +76,8 @@ export const parseRoutes = ({ paths }: ISwaggerSpec): IRoute[] => {
         controller: details['x-controller'],
         authEnabled: details['x-member-auth-enabled'],
         authRequired: details['x-member-auth-required'],
+        memberJwtAuth: details['x-member-jwt-auth-enabled'],
+        memberJwtAuthRequired: details['x-member-jwt-auth-required'],
         details
       });
     });

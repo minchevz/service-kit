@@ -1,6 +1,6 @@
 {
   "name": "core-versions",
-  "version": "2.34.1",
+  "version": "2.53.0",
   "private": true,
   "description": "Example of spinning up a new service using core",
   "scripts": {
@@ -10,7 +10,7 @@
     "docker:contract": "cd contract-test && source .env && docker compose up"
   },
   "dependencies": {
-    "@service-kit/core": "2.34.1",
+    "@service-kit/core": "2.53.0",
     "typescript": "^4.8.3"
   },
   "devDependencies": {

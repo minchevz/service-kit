@@ -1,5 +1,6 @@
 import { validateRoute } from '../../middleware/validate-params';
-import authentication from '../../middleware/authentication';
+import chimeraAuthentication from '../../middleware/chimera-auth';
+import memberJwtAuthentication from '../../middleware/member-jwt-auth';
 import attachContract from '../../middleware/contract';
 import { loadContracts, parseRoutes } from '../../utils/contract';
 import { loadController } from '../../utils/controllers';
@@ -57,7 +58,8 @@ export default async (
         router[route.method](
           route.path,
           attachContract(route),
-          authentication(config),
+          chimeraAuthentication(config),
+          memberJwtAuthentication(config),
           validateRoute(route.path, schema, logger),
           controller
         );

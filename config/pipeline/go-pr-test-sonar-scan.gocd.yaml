@@ -26,7 +26,7 @@ pipelines:
             defaultJob:
               timeout: 0
               resources:
-                - node14
+                - node18
               tasks:
                 - exec:
                     arguments:
@@ -66,7 +66,7 @@ pipelines:
                 - exec:
                     arguments:
                       - -c
-                      - 'git clone  --no-checkout git@github.gamesys.co.uk:PlayerServices/gocd-pr-check-tools.git &&
+                      - "git clone  --no-checkout git@github.gamesys.co.uk:PlayerServices/gocd-pr-check-tools.git &&
                         cd gocd-pr-check-tools &&
                         git checkout origin/main sonarqube.sh &&
                         chmod +x sonarqube.sh &&
@@ -75,7 +75,7 @@ pipelines:
                         chmod +x sonarqube_analysis.sh &&
                         mv sonarqube_analysis.sh ../ &&
                         cd .. &&
-                        rm -rf gocd-pr-check-tools'
+                        rm -rf gocd-pr-check-tools"
                     command: /bin/bash
                     run_if: passed
                     working_directory: service-kit-pr

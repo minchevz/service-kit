@@ -29,7 +29,7 @@ pipelines:
               timeout: 0
               resources:
                 - git
-                - node14
+                - node18
                 - docker
               tasks:
                 - plugin:

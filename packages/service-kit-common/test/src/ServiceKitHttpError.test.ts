@@ -1,23 +1,24 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosRequestHeaders, InternalAxiosRequestConfig } from 'axios';
 import { ServiceKitHttpError } from '../../src/ServiceKitHttpError';
 
 const axiosError: AxiosError = {
-  name: 'test',
+  name: 'AxiosError',
   isAxiosError: true,
   message: 'test-error',
-  code: '',
   config: {
-    headers: {},
+    method: 'get',
+    headers: {} as AxiosRequestHeaders,
+    params: {},
     baseURL: 'test'
   },
   response: {
     data: null,
     status: 404,
+    statusText: 'NOT_FOUND',
     headers: {},
-    config: {},
-    statusText:'NOT_FOUND'
+    config: {} as InternalAxiosRequestConfig
   },
-  toJSON: () => jest.fn()
+  toJSON: jest.fn()
 };
 
 describe('ServiceKitHttpError', () => {
@@ -37,7 +38,7 @@ describe('ServiceKitHttpError', () => {
   describe('when AXIOS RESPONSE CODE details provided', () => {
     it('should have default error properties and details', () => {
       axiosError.code = 'ECONNABORTED';
-      axiosError.config = { url: '/url' };
+      axiosError.config = { url: '/url', headers: {} as AxiosRequestHeaders };
 
       const errorObject = new ServiceKitHttpError(axiosError.message, axiosError);
 
@@ -59,7 +60,7 @@ describe('ServiceKitHttpError', () => {
 
   describe('when response is not provided', () => {
     it('should have default error properties and details', () => {
-      const err = JSON.parse(JSON.stringify({ message: 'test', config:{}, response: {} }));
+      const err = JSON.parse(JSON.stringify({ message: 'test', config: {}, response: {} }));
 
       const errorObject = new ServiceKitHttpError(err.message, err);
 

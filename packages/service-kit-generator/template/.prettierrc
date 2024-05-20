@@ -1,0 +1,23 @@
+{
+  "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 100,
+  "overrides": [
+    {
+      "files": "*.yml",
+      "options": {
+        "parser": "yaml",
+        "trailingComma": "none",
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.yaml",
+      "options": {
+        "parser": "yaml",
+        "trailingComma": "none",
+        "singleQuote": false
+      }
+    }
+  ]
+}

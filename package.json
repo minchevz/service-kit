@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "A toolkit for spinning up and configuring a microservice.",
   "main": "index.js",
-  "repository": "git@github.gamesys.co.uk:PlayerServices/service-kit.git",
+  "repository": "git@gitlab.ballys.tech:excite/unicorn/applications/service-kit.git",
   "author": "Gamesys",
   "license": "MIT",
   "scripts": {
@@ -13,35 +13,37 @@
     "commit": "git-cz",
     "test": "lerna run test",
     "lintify": "lerna run lintify",
-    "prettify": "prettier --write **/*.{js,ts,json}",
+    "prettify": "prettier --write **/*.{json,md,yml,yaml}",
     "lintfix": "eslint --fix --ext .ts .",
     "docker:build": "./scripts/build.sh",
     "reset": "lerna exec -- rm -rf node_modules && lerna exec -- rm -rf dist && lerna exec -- rm -rf lib && rm -rf node_modules",
     "update": "lernaupdate",
-    "sonarqube": "sonar-scanner"
+    "sonarqube:docker": "docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest",
+    "sonarqube:start": "sonar-scanner -Dproject.settings=./sonar-local.properties",
+    "sonarqube:stop": "docker stop sonarqube && docker rm sonarqube"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
     "@types/jest": "^29.2.0",
-    "@typescript-eslint/eslint-plugin": "5.1.0",
-    "@typescript-eslint/parser": "5.1.0",
-    "@unicorn/eslint-config": "^8.7.0",
+    "@types/node": "^20.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "8.0.0",
+    "eslint": "8.42.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-you-dont-need-lodash-underscore": "^6.10.0",
-    "husky": "^4.3.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-you-dont-need-lodash-underscore": "^6.12.0",
+    "husky": "^8.0.3",
     "jest": "^29.2.2",
     "jest-sonar-reporter": "^2.0.0",
     "lerna": "^3.22.1",
     "lerna-update-wizard": "^0.17.8",
-    "lint-staged": "^10.5.1",
     "prettier": "^2.2.1",
-    "ts-jest": "^29.0.3",
-    "typescript": "4.8.3"
+    "ts-jest": "^29.1.1",
+    "typescript": "5.1.6"
   },
   "resolutions": {
     "lodash": "^4.17.21",
@@ -52,5 +54,8 @@
       "packages/*",
       "examples/*"
     ]
+  },
+  "engines": {
+    "node": "18"
   }
 }

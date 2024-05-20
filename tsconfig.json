@@ -16,7 +16,11 @@
     "incremental": true,
     "removeComments": true,
     "composite": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noImplicitReturns": true /* Report error when not all code paths in function return a value. */
   },
   "exclude": ["dist", "node_modules"]
 }

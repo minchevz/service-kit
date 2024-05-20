@@ -1,6 +1,6 @@
 {
   "name": "@service-kit/generator",
-  "version": "2.34.0",
+  "version": "2.53.0",
   "description": "A generator for creating new node.js MicroService projects",
   "main": "plopfile.js",
   "repository": "https://github.gamesys.co.uk/PlayerServices/service-kit",

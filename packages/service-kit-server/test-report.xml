@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/server/koa/gracefullShutdown.test.ts">
+    <testCase name="Given the @service-kit/server package should call the server app listen method with a port" duration="4"/>
+    <testCase name="Given the @service-kit/server package when onSignal is called should call log warning" duration="3"/>
+    <testCase name="Given the @service-kit/server package when onShutdown is called should call log warning" duration="1"/>
+    <testCase name="Given the @service-kit/server package when onShutdown is called should call log warning" duration="5006"/>
+    <testCase name="Given the @service-kit/server package when node env is production should set beforeShutdown option" duration="8"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/server/koa/index.test.ts">
+    <testCase name="Given a Koa server should provide an instance of Koa" duration="1"/>
+    <testCase name="Given a Koa server should provide an instance of Koa Router" duration="0"/>
+    <testCase name="Given a Koa server should call the safeRedirect function" duration="2"/>
+    <testCase name="Given a Koa server should call the use method appropriate number of times" duration="1"/>
+    <testCase name="Given a Koa server should use the body-parser middleware" duration="0"/>
+    <testCase name="Given a Koa server should use the errorHandler middleware" duration="1"/>
+    <testCase name="Given a Koa server should use the attach error dictionary to the context" duration="0"/>
+    <testCase name="Given a Koa server should use the open api middleware" duration="1"/>
+    <testCase name="Given a Koa server should call registerRoutes with the appropriate parameters" duration="0"/>
+    <testCase name="Given a Koa server should log general Koa errors" duration="6"/>
+    <testCase name="Given a Koa server Given a Koa server more than 1 contracts should call the use method appropriate number of times" duration="29"/>
+    <testCase name="Given a Koa server with middleware parameter present should handle empty middleware array" duration="2"/>
+    <testCase name="Given a Koa server with middleware parameter present should handle one extra middleware" duration="1"/>
+    <testCase name="Given a Koa server with middleware parameter present should handle multiple extra middleware" duration="3"/>
+    <testCase name="Given Bull Board should call queuenamger if QUEUE_ENABLED is true" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/validate-params.test.ts">
+    <testCase name="Given the validateRoute middleware when called on a route with request parameters should return successfully and call next middleware if the request parameters match" duration="3"/>
+    <testCase name="Given the validateRoute middleware when called on a route with request parameters should throw a parameter_validation_error error if the request parameters do not match" duration="1"/>
+    <testCase name="Given the validateRoute middleware when called on a route with body params should return successfully and call next middleware if the request body matches" duration="1"/>
+    <testCase name="Given the validateRoute middleware when called on a route with body params should throw a body_validation_error error the one of the required body params are missing" duration="15"/>
+    <testCase name="Given the validateRoute middleware when called on a route with headers and query params should return successfully and call next middleware if the request headers and query params match" duration="1"/>
+    <testCase name="Given the validateRoute middleware when called on a route with headers and query params should return successfully and call next middleware if query params match and the required headers are present" duration="3"/>
+    <testCase name="Given the validateRoute middleware when called on a route with headers and query params should throw a parameter_validation_error error if parameters match but the required headers are missing" duration="1"/>
+    <testCase name="Given the validateRoute middleware when called on a route with headers and query params should throw a parameter_validation_error error if parameters do not match" duration="1"/>
+    <testCase name="Given the validateRoute middleware when called on invalid route should throw an error if the requested route is not matching the schema" duration="0"/>
+    <testCase name="Given the validateRoute middleware when called with invalid method for a route should throw an error if the request method is not matching the schema" duration="0"/>
+    <testCase name="Given the validateRoute middleware should throw validation error when validateBody method throws unexpectedly" duration="0"/>
+    <testCase name="Given the validateRoute middleware should throw validation error when validateParams method throws unexpectedly" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/server/koa/queueManagement.test.ts">
+    <testCase name="Given a Koa server should create BullMQAdapters and call createBullBoard with correct parameters" duration="2"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/server/koa/registerRoutes.test.ts">
+    <testCase name="Given the registerRoutes should register the all routes" duration="2"/>
+    <testCase name="Given the registerRoutes should call use method with the correct params" duration="1"/>
+    <testCase name="Given the registerRoutes when one route is not assigned should register the other routes" duration="0"/>
+    <testCase name="Given the registerRoutes when one route is not assigned should log the failed controller for that route" duration="1"/>
+    <testCase name="Given the registerRoutes when there are no controller paths should NOT register any route" duration="1"/>
+    <testCase name="Given the registerRoutes when there are no controller paths should log all controllers that are not found" duration="2"/>
+    <testCase name="Given the registerRoutes when there are no controllers should NOT register any routes" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/validation.test.ts">
+    <testCase name="Given the createSchema method when called with a valid openApi contract it should return an AJV validation schema" duration="127"/>
+    <testCase name="Given the createSchema method should throw when not called with a valid openApi contract" duration="1"/>
+    <testCase name="Given the extractParams method the method property should be the lowercased value of the context method" duration="1"/>
+    <testCase name="Given the extractParams method the headers property should be headers of the request property on the context" duration="1"/>
+    <testCase name="Given the extractParams method the params property should be params property on the context" duration="0"/>
+    <testCase name="Given the extractParams method the query property should be query property on the context" duration="1"/>
+    <testCase name="Given the extractParams method the body property should be body of the request property on the context" duration="0"/>
+    <testCase name="Given the validateBody method should throw when there is no body property on the endpoint" duration="1"/>
+    <testCase name="Given the validateParams method should throw when there is no parameters property on the endpoint" duration="0"/>
+    <testCase name="Given the validateParams method should remove any numerically indexed params from path validation" duration="2"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/chimera-auth.test.ts">
+    <testCase name="Given the authentication middleware When app starts should setup the base axios client" duration="2"/>
+    <testCase name="Given the authentication middleware when authentication is not enabled should not call Chimera" duration="1"/>
+    <testCase name="Given the authentication middleware when authentication is not enabled should not set memberAuthSuccess" duration="0"/>
+    <testCase name="Given the authentication middleware when authentication is not enabled should call next" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when credentials are specified should call call Chimera" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when credentials are specified should set memberAuthSuccess to true" duration="1"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when credentials are specified should call next" duration="1"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when chimera returns a non 200 should set context.memberAuthSuccess to false" duration="1"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when chimera returns a non 200 should call next" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when chimera times out should set context.memberAuthSuccess to false" duration="3"/>
+    <testCase name="Given the authentication middleware when auth is enabled but not required when chimera times out should call next" duration="1"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when credentials are specified should call call Chimera" duration="1"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when credentials are specified should set memberAuthSuccess to true" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when credentials are specified should call next" duration="1"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when chimera returns a non 200 should not call next" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when chimera returns a non 200 should throw a ServiceKitApplicationError" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when chimera times out should not call next" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when chimera times out should throw a ServiceKitApplicationError" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when the memberIds do not match should call respond with the correct error payload" duration="0"/>
+    <testCase name="Given the authentication middleware when auth is enabled and required when the memberIds do not match should NOT call next" duration="0"/>
+    <testCase name="Given the authentication middleware when a non-auth related error is caught should call Chimera" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/contract.test.ts">
+    <testCase name="The Contract utils module loadContracts should parse each contract file specified" duration="2"/>
+    <testCase name="The Contract utils module loadContracts should merge each contract together" duration="0"/>
+    <testCase name="The Contract utils module loadContracts should dedupe servers array in merged contract" duration="1"/>
+    <testCase name="The Contract utils module when invalid contracts should throw exception" duration="8"/>
+    <testCase name="The Contract utils module parseRoutes should automatically parse and format paths when required" duration="1"/>
+    <testCase name="The Contract utils module Given validateContractVersionedPaths function, when paths are NOT defined based on its own version should throw exception" duration="1"/>
+    <testCase name="The Contract utils module Given validateContractVersionedPaths function, when paths have wrong version defined based on its own version should throw exception" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/mergeContracts.test.ts">
+    <testCase name="The Contract utils module when all correct arguments passed  should exit with success " duration="2"/>
+    <testCase name="The Contract utils module when file extension is wrong  Should log no merging" duration="1"/>
+    <testCase name="The Contract utils module When merging is not required  should log it gracefully " duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/member-jwt-auth.test.ts">
+    <testCase name="Given the member-jwt middleware When app starts should setup the base axios client" duration="2"/>
+    <testCase name="Given the member-jwt middleware when authentication is not enabled should not call Session-Service" duration="0"/>
+    <testCase name="Given the member-jwt middleware when authentication is not enabled should not set memberAuthSuccess" duration="0"/>
+    <testCase name="Given the member-jwt middleware when authentication is not enabled should call next" duration="1"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled but not required when session-id is specified should call Session-Service" duration="1"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled but not required when session-id is specified should call next" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled but not required when session-id is not set should call Session-Service" duration="1"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled but not required when session-id is not set should call next" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled but not required when session-service returns a non 200 should set memberAuthSuccess to be false" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled but not required when session-service returns a non 200 it should throw the original error" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-id is given should call session-service" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-id is given should call next" duration="1"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-service returns a non 200 should not call next" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-service returns a non 200 should throw a ServiceKitCustomHttpError" duration="3"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-service times out should not call next" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-service times out should return the expected error payload" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-service returns a different memberId should NOT call next" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when session-service returns a different memberId should throw a ServiceKitCustomHttpError" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when memberid is not defined should NOT call next" duration="0"/>
+    <testCase name="Given the member-jwt middleware when auth is enabled and required when memberid is not defined it should throw the original error" duration="0"/>
+    <testCase name="Given the member-jwt middleware when a non-auth related error is caught it should throw the original error" duration="0"/>
+    <testCase name="Given the member-jwt middleware when proxy is not defined should call session-service with no proxy" duration="1"/>
+    <testCase name="Given the member-jwt middleware when proxy is defined should call session-service with proxy" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/open-api.test.ts">
+    <testCase name="Given the Open API Middleware should call the open API with the correct params" duration="1"/>
+    <testCase name="Given the Open API Middleware should call the open API with the correct params when default server options" duration="0"/>
+    <testCase name="Given the Open API Middleware should handle thrown exceptions" duration="5"/>
+    <testCase name="Given the Open API Middleware should throw error for invalid contract paths" duration="4"/>
+    <testCase name="Given the Open API Middleware should throw error for invalid contract extensions" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/server/koa/setSwaggerVersionsUi.test.ts">
+    <testCase name="Given a setSwaggerVersionsUi utility, should call app.use as many as contract files plus swaggerui" duration="2"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/controllers.test.ts">
+    <testCase name="The Controller utils module loadController when given a file that does not exist should return undefined" duration="3"/>
+    <testCase name="The Controller utils module loadController when given a file that exports the controller as a named default export should return the controller function" duration="1"/>
+    <testCase name="The Controller utils module loadController when given a file that exports the controller as the default should return the controller function" duration="0"/>
+    <testCase name="The Controller utils module loadController when given a file that includes a folder should return the controller function" duration="1"/>
+    <testCase name="The Controller utils module executeFunctions should handle functions which run successfully" duration="0"/>
+    <testCase name="The Controller utils module executeFunctions should handle functions with errors" duration="0"/>
+    <testCase name="The Controller utils module executeFunctions should handle functions which throw exceptions" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/error-handler.test.ts">
+    <testCase name="Given the errorHandler middleware runs the next middleware and resolves" duration="1"/>
+    <testCase name="Given the errorHandler middleware when error is Application Error, returns server error" duration="1"/>
+    <testCase name="Given the errorHandler middleware when error is Axios Error, returns server error" duration="3"/>
+    <testCase name="Given the errorHandler middleware when error is Axios Error, and there is details, returns server error" duration="1"/>
+    <testCase name="Given the errorHandler middleware when error is OpenApi Error, returns server error" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/contentful-body-parser.test.ts">
+    <testCase name="Given the contentfulBodyParser middleware should parse body if content type is application/vnd.contentful.management.v1+json" duration="2"/>
+    <testCase name="Given the contentfulBodyParser middleware should log an error if JSON is invalid" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/errors.test.ts">
+    <testCase name="The Errors utils module loadErrorDictionaries should get all files in all the specified directories" duration="1"/>
+    <testCase name="The Errors utils module loadErrorDictionaries should read in all files and merge" duration="0"/>
+    <testCase name="The Errors utils module findDictionaryLocale should use the header if present" duration="0"/>
+    <testCase name="The Errors utils module findDictionaryLocale should default to english if the header value has no dictionary" duration="0"/>
+    <testCase name="The Errors utils module findDictionaryLocale should default to english if no header value" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/controllers/live-check.test.ts">
+    <testCase name="Given the live-check Controller when all service checks have returned successfully should respond with a 200" duration="1"/>
+    <testCase name="Given the live-check Controller when all service checks have returned successfully should respond with the correct format" duration="1"/>
+    <testCase name="Given the live-check Controller when one or more service checks has failed should respond with a 500, INTERNAL_SERVER_ERROR" duration="0"/>
+    <testCase name="Given the live-check Controller when one or more service checks has failed should respond with the correct format" duration="1"/>
+    <testCase name="Given the live-check Controller when the controllerOptions are empty should respond with a 200, INTERNAL_SERVER_ERROR" duration="0"/>
+    <testCase name="Given the live-check Controller when the controllerOptions are empty should have no responses to report" duration="0"/>
+    <testCase name="Given the live-check Controller when an exception has occurred should respond with a 500, INTERNAL_SERVER_ERROR" duration="0"/>
+    <testCase name="Given the live-check Controller when an exception has occurred should always respond with the correct format" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/controllers/enhanced-check.test.ts">
+    <testCase name="Given the enhanced-check controller should handle level 1" duration="1"/>
+    <testCase name="Given the enhanced-check controller should handle level 2" duration="0"/>
+    <testCase name="Given the enhanced-check controller should handle unknown level" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/getRawBody.test.ts">
+    <testCase name="getRawBody should resolve with the data when data is received" duration="1"/>
+    <testCase name="getRawBody should reject the promise when there is an error event" duration="3"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/index.test.ts">
+    <testCase name="Given the @service-kit/server package when the exposed listen method is called with a port should call the server app listen method with a port" duration="1"/>
+    <testCase name="Given the @service-kit/server package when the exposed listen method is called without a port should call the server app listen method without a port" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/controllers/ready-check.test.ts">
+    <testCase name="The Ready Check Controller should always respond with a 200" duration="1"/>
+    <testCase name="The Ready Check Controller should always respond with the correct format" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/openApiError.test.ts">
+    <testCase name="OpenApiError should have default error properties" duration="3"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/contract.test.ts">
+    <testCase name="Given the attachContract middleware should attach the contract to the context and call next" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/redirectUrlValidator.test.ts">
+    <testCase name="Given the redirectUrlValidator module should properly encode internal urls" duration="2"/>
+    <testCase name="Given the redirectUrlValidator module should throw an INVALID_PROTOCOL_ERROR error for non https protocols of external urls" duration="1"/>
+    <testCase name="Given the redirectUrlValidator module should throw an INVALID_URL_ERROR error for external urls missing a host" duration="1"/>
+    <testCase name="Given the redirectUrlValidator module should throw an error for external urls missing a host" duration="0"/>
+    <testCase name="Given the redirectUrlValidator module should sanitize url before parsing it removing any script symbols from it" duration="0"/>
+    <testCase name="Given the redirectUrlValidator module while processing a url should parse any string input" duration="1"/>
+    <testCase name="Given the redirectUrlValidator module while processing a url should encode any leftover single quotes after parsing" duration="1"/>
+    <testCase name="Given the redirectUrlValidator module while processing a url should correctly construct external urls after encoding" duration="3"/>
+    <testCase name="Given the redirectUrlValidator module while processing a url should correctly construct internal urls after encoding" duration="0"/>
+    <testCase name="Given the redirectUrlValidator module while processing a url should behave correctly if called with empty input" duration="0"/>
+    <testCase name="Given the redirectUrlValidator module while processing a url when there is an unexpected error should catch and propagate the error" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/queueWorker.test.ts">
+    <testCase name="loadQueueWorkersUtil createWorkerMQ should create workers for all valid queues" duration="2"/>
+    <testCase name="loadQueueWorkersUtil Worker loader loads and creates worker MQ correctly" duration="2"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/safeRedirect.test.ts">
+    <testCase name="Given the safeRedirect method wrapping the internal koa redirect method should attach the wrapped version to the koa.context" duration="2"/>
+    <testCase name="Given the safeRedirect method wrapping the internal koa redirect method should encode a passed in url before passing it to the internal koa redirect" duration="3"/>
+    <testCase name="Given the safeRedirect method wrapping the internal koa redirect method should make sure any alt url is also encoded before passing it to the koa redirect method" duration="1"/>
+    <testCase name="Given the safeRedirect method when there is an unexpected error during initialization should catch and propagate the error" duration="1"/>
+    <testCase name="Given the safeRedirect method when there is an unexpected error during initialization should attach the wrapped version to the koa.context" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/middleware/swaggerUi.test.ts">
+    <testCase name="Given the Open API Middleware should call the open API with the correct params" duration="1"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/isOpenApiError.test.ts">
+    <testCase name="Given isOpenApiError utility when message includes `RequestValidationError` should return truthy" duration="1"/>
+    <testCase name="Given isOpenApiError utility when message includes `ResponseValidationError` should return truthy" duration="1"/>
+    <testCase name="Given isOpenApiError utility when message doesnt include `RequestValidationError` or `ResponseValidationError` should return falsy" duration="0"/>
+  </file>
+  <file path="/Users/oktay.osmanov/work-space/service-kit/packages/service-kit-server/test/src/utils/filePathValidation.test.ts">
+    <testCase name="Given filePathValidation utils module when getStaticFileDirectory is triggered should return the directory" duration="1"/>
+    <testCase name="Given filePathValidation utils module when getValidContractFileName is triggered, should return the correct filename" duration="1"/>
+    <testCase name="Given filePathValidation utils module when getValidContractFileName is triggered, and if filename is NOT yml or yaml type should return null" duration="0"/>
+    <testCase name="Given filePathValidation utils module when given a file that exports the controller as the default should return the controller function" duration="0"/>
+  </file>
+</testExecutions>

@@ -1,4 +1,4 @@
-import { Method } from '../../types';
+import { IRequestObject, Method } from '../../types';
 
 export interface ISwaggerServer {
   url: string;
@@ -7,7 +7,7 @@ export interface ISwaggerServer {
 
 export interface ISwaggerRoute {
   'x-controller': string;
-  requestBody?: unknown;
+  requestBody?: IRequestObject;
 }
 
 export interface IRoute {
@@ -17,6 +17,8 @@ export interface IRoute {
   details: ISwaggerRoute;
   authEnabled: boolean;
   authRequired: boolean;
+  memberJwtAuth: boolean;
+  memberJwtAuthRequired: boolean;
 }
 
 interface ISwaggerPath {

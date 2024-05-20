@@ -1,0 +1,53 @@
+{
+  "QUEUE_ENABLED": {
+    "doc": "The proxy setting for pp environment domains.",
+    "default": true,
+    "env": "QUEUE_ENABLED"
+  },
+  "WORKER_CONFIG": {
+    "WORKER_REMOVE_ON_COMPLETE_AGE": {
+      "doc": "Max age to keep a job on success in worker.",
+      "default": 3600,
+      "env": "WORKER_REMOVE_ON_COMPLETE_AGE"
+    },
+    "WORKER_REMOVE_ON_FAIL_AGE": {
+      "doc": "Max age to keep a job on fail in worker.",
+      "default": 3600,
+      "env": "WORKER_REMOVE_ON_FAIL_AGE"
+    },
+    "CONCURRENCY": {
+      "doc": "Concurrency of worker.",
+      "default": 10,
+      "env": "CONCURRENCY"
+    }
+  },
+  "QUEUE_CONFIG": {
+    "QUEUE_REMOVE_ON_COMPLETE_AGE": {
+      "doc": "Max age to keep a job on success in queue.",
+      "default": 3600,
+      "env": "QUEUE_REMOVE_ON_COMPLETE_AGE"
+    },
+    "QUEUE_REMOVE_ON_FAIL_AGE": {
+      "doc": "Max age to keep a job on fail in queue.",
+      "default": 3600,
+      "env": "QUEUE_REMOVE_ON_FAIL_AGE"
+    },
+    "MAX_NUMBER_OF_JOBS_ON_DASHBOARD": {
+      "doc": "Max number of jobs on dashboard.",
+      "default": 1000,
+      "env": "MAX_NUMBER_OF_JOBS_ON_DASHBOARD"
+    }
+  },
+  "QUEUE_NAMES": {
+    "QUEUE_1": {
+      "doc": "[Queue] Example Queue 1.",
+      "default": "QUEUE_EXAMPLE_QUEUE_1",
+      "env": "QUEUE_1"
+    },
+    "QUEUE_2": {
+      "doc": "[Queue] Example Queue 2.",
+      "default": "QUEUE_EXAMPLE_QUEUE_2",
+      "env": "QUEUE_1"
+    }
+  }
+}

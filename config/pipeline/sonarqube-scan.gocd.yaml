@@ -1,0 +1,41 @@
+---
+format_version: 3
+pipelines:
+  service-kit-sonarqube:
+    group: Microservice_Libraries
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    environment_variables:
+      NPM_CONF_REG: registry=https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/
+      NPM_CONF_AUTH_ALWAYS: always-auth=true
+      SONAR_HOST_URL: https://sonarqube.gamesysgames.com/
+    secure_variables:
+      SONAR_LOGIN: AES:lX/IXp5AoI5z3CiQpeRmlg==:JHK7PXPFlsTQXle9o0o2KtagB3b1d9RppAoQFclEMehYlG9Xq4BaEgrK2cFTBGhW
+    materials:
+      git:
+        git: git@github.gamesys.co.uk:PlayerServices/service-kit.git
+        shallow_clone: false
+        auto_update: true
+        branch: master
+    stages:
+      - scan:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: false
+          approval:
+            type: success
+          jobs:
+            scan:
+              timeout: 0
+              resources:
+                - git
+                - node18
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - yarn cache clean && yarn install --frozen-lockfile && yarn run build && yarn test -- --ci && /opt/sonar-scanner/bin/sonar-scanner -Dsonar.login=${SONAR_LOGIN}
+                    run_if: passed

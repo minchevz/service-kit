@@ -1,0 +1,80 @@
+format_version: 3
+pipelines:
+  core-session-service-go-pr-nexus-scan:
+    group: core-session-service
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      core-session-service-pr:
+        scm:
+        name: core-session-service-pr
+        destination: core-session-service-pr
+        shallow_clone: true
+    environment_variables:
+      NPM_CONF_REG: registry=https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/
+      NPM_CONF_AUTH_ALWAYS: always-auth=true
+    secure_variables:
+      NPM_USER: AES:OyTfPufSGNv+SSDu54xROw==:mPHBnbimJjnznW4qjq6Uy9FltA0iSB1NRe0Tg0g+Gek=
+      NPM_PASS: AES:f5SpoI8+Y851I42DI52cCw==:QJEeyTubh5UVVA93VSc1lW4Pyk68Z+50YNEB975+U+Q=
+    stages:
+      - defaultStage:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: true
+          approval:
+            type: success
+          environment_variables:
+          secure_variables:
+          jobs:
+            defaultJob:
+              timeout: 0
+              resources:
+                - node18
+              tasks:
+                - exec:
+                    arguments:
+                      - -c
+                      - 'echo "USER INFO" &&
+                        echo "$NPM_CONF_REG" &&
+                        echo "$NPM_CONF_AUTH_ALWAYS" &&
+                        echo "$NPM_CONF_REG" > .npmrc &&
+                        echo "$NPM_CONF_AUTH_ALWAYS" >> .npmrc &&
+                        echo "//artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/:_authToken=$(curl -u$NPM_USER:$NPM_PASS -XPOST "https://artifactory.gamesys.co.uk/artifactory/api/security/token" -d username="$NPM_USER" -d "scope=member-of-groups:*" | jq -r ".access_token")" >> .npmrc &&
+                        docker build --rm -t nexus-scan-image:latest . &&
+                        docker volume create --name core-session-service-volume &&
+                        docker run -d -u root -v core-session-service-volume:/opt/app-root/sec-scan --name core-session-service-container nexus-scan-image:latest sleep infinity &&
+                        docker exec  core-session-service-container cp -r /opt/app-root/src/. /opt/app-root/sec-scan'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker run --rm --name core-session-service-nexus-iq-scanner -v core-session-service-volume:/var/scan/app -e NEXUS_PROJECT_ID=core-session-service unicorn-docker.artifactory.gamesys.co.uk/unicorn_nexusiq_scanner:1.1.21 &&
+                         sleep 10'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker kill  core-session-service-container &&
+                         sleep 10 &&
+                         docker rm -f core-session-service-container &&
+                         docker volume rm -f core-session-service-volume &&
+                         docker rmi -f nexus-scan-image:latest'
+                    command: /bin/bash
+                    run_if: passed
+                    working_directory: core-session-service-pr
+                - exec:
+                    arguments:
+                      - -c
+                      - 'docker kill  core-session-service-container &&
+                         sleep 10 &&
+                         docker rm -f core-session-service-container &&
+                         docker rmi -f nexus-scan-image:latest &&
+                         docker volume rm -f core-session-service-volume'
+                    command: /bin/bash
+                    run_if: failed
+                    working_directory: core-session-service-pr

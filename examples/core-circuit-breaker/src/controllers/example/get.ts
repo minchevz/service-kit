@@ -10,7 +10,7 @@ const test1 = (ventureName: string, memberId: number): Promise<string> =>
 const test2 = (currency: string, ventureId: string): Promise<string> =>
   new Promise((resolve) => {
     setTimeout(() => {
-      resolve(`circuit-2 : ${currency}-${ventureId}`);
+      resolve(`circuit-2: ${currency}-${ventureId}`);
     }, 100);
   });
 

@@ -35,7 +35,7 @@ pipelines:
               resources:
                 - docker
                 - git
-                - node14
+                - node18
               tasks:
                 - exec:
                     arguments:

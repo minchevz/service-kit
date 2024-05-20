@@ -4,9 +4,9 @@ This package exports a function that will read in environment variables, read sp
 
 ## Features
 
-* Automatically provides a `Base` configuration object with the `env` specified.
-* Merges in all specified configuration files and populates environmental variables / default values.
-* Validates your config.
+- Automatically provides a `Base` configuration object with the `env` specified.
+- Merges in all specified configuration files and populates environmental variables / default values.
+- Validates your config.
 
 ## Getting started
 
@@ -19,12 +19,9 @@ After installing, execute the package and configure as necessary.
 ```js
 const config = require('@service-kit/config-loader');
 
-const myConfigObject = config({ configPaths: [
-    './path/to/config1.json', 
-    './path/to/config1.json' 
-    ] 
+const myConfigObject = config({
+  configPaths: ['./path/to/config1.json', './path/to/config1.json']
 });
-
 ```
 
 ## Options
@@ -37,12 +34,12 @@ Optional array of config file locations. Each file should contain a single Objec
 
 ```json
 {
-    "Client": {
-        "example": {
-            "doc": "The NODE_CLIENT_EXAMPLE environment.",
-            "default": "my-default-value",
-            "env": "NODE_CLIENT_EXAMPLE"
-        }
+  "Client": {
+    "example": {
+      "doc": "The NODE_CLIENT_EXAMPLE environment.",
+      "default": "my-default-value",
+      "env": "NODE_CLIENT_EXAMPLE"
     }
+  }
 }
 ```

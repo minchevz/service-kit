@@ -45,13 +45,11 @@ items:
     gameSkin: js-dfg-doubly-bubbly
     imgUrlPattern: /api/content/gametiles/new-doubly-bubbly/scale-s%s/doubly-bubbly-tile-r%s-w%s.jpg
     realUrl: /service/game/play/js-dfg-doubly-bubbly
-    representativeColor: '#000'
-    size: {
-      tall: true
-    }
+    representativeColor: "#000"
+    size: { tall: true }
     demoUrl: url
     isProgressiveJackpot: true
-    progressiveBackgroundColor: '#000'
+    progressiveBackgroundColor: "#000"
     loggedOutImgUrlPattern: url
     sash: {}
     videoUrlPattern: url

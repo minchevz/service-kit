@@ -1,6 +1,7 @@
 # @service-kit/core
 
 This package exports a utility function which provides most of the most common utilities and functionalities .
+
 ## Table of contents
 
 - [Features](#features)
@@ -12,10 +13,11 @@ This package exports a utility function which provides most of the most common u
 - [Circuit Breaker](#circuit-breaker)
 
 ---
+
 ## Features
 
-* Automatically loads, instantiates and exports the @service-kit/config-loader module.
-* Automatically bootstraps and provides server functionality.
+- Automatically loads, instantiates and exports the @service-kit/config-loader module.
+- Automatically bootstraps and provides server functionality.
 
 ## Getting started
 
@@ -43,9 +45,9 @@ const service, { Context, modules } = require('@service-kit/core');
     });
 
     server.listen(3000);
-    
+
     // All configuration properties
-    config.getProperties(); 
+    config.getProperties();
 })()
 
 ```
@@ -56,9 +58,7 @@ The default export is an asynchronous function which takes the ServiceManifest a
 
 ### Named Exports
 
-
 #### Context
-
 
 The @koa/router RouterContext for usage inside your controller functions. For example:
 
@@ -66,13 +66,11 @@ The @koa/router RouterContext for usage inside your controller functions. For ex
 const { Context } = require('@service-kit/core');
 
 export default (ctx: Context) => {
-    ctx.body = "Hello World";
-}
-
+  ctx.body = 'Hello World';
+};
 ```
 
 #### modules
-
 
 As the @service-kit/core will instantiate common modules such as config as well as any modules that you provide to it. As these are often dependent on the provided manifest options and / or other modules, they are only available after executing the main default function.
 
@@ -82,14 +80,12 @@ Although you can access the modules object before executing the main function, t
 const { Context, modules } = require('@service-kit/core');
 
 export default (ctx: Context) => {
-    const { config } = modules;
-    ctx.body = {
-        allConfigProperties: config.getProperties()
-    };
-}
-
+  const { config } = modules;
+  ctx.body = {
+    allConfigProperties: config.getProperties()
+  };
+};
 ```
-
 
 ## Options
 
@@ -113,13 +109,13 @@ Optional array of config file locations. Each file should contain a single Objec
 
 ```json
 {
-    "Client": {
-        "example": {
-            "doc": "The NODE_CLIENT_EXAMPLE environment.",
-            "default": "my-default-value",
-            "env": "NODE_CLIENT_EXAMPLE"
-        }
+  "Client": {
+    "example": {
+      "doc": "The NODE_CLIENT_EXAMPLE environment.",
+      "default": "my-default-value",
+      "env": "NODE_CLIENT_EXAMPLE"
     }
+  }
 }
 ```
 
@@ -133,11 +129,10 @@ An array of file locations for the service contract definitions. Expects each it
 
 ```js
 {
-    contractPaths: [
-        `${__dirname}/contracts/basic.yml`,
-        `${__dirname}/contracts/auth.yml`
-        `${__dirname}/contracts/games.yml`
-    ]
+  contractPaths: [
+    `${__dirname}/contracts/basic.yml`,
+    `${__dirname}/contracts/auth.yml``${__dirname}/contracts/games.yml`
+  ];
 }
 ```
 
@@ -147,17 +142,14 @@ An array of directories in which to auto-lookup route controllers.
 
 ```js
 {
-    controllerPaths: [
-        `${__dirname}/src/controllers/`,
-        `${__dirname}/packages/auth/controllers`
-    ]
+  controllerPaths: [`${__dirname}/src/controllers/`, `${__dirname}/packages/auth/controllers`];
 }
 ```
 
 #### Chimera Authentication Service
 
 Its a built-in chimera auth functionality that provides a flexibility to use as standalone logic in any level of the codebase.
-see how to use in : examples/core-authentication 
+see how to use in : examples/core-authentication
 
 #### Circuit Breaker
 
@@ -165,9 +157,9 @@ Its a built-in resiliency pattern which is widely used in microservice architect
 In core module the pattern is provided by opossum npm package which gives lots of configurations and setup.
 
 - how to use?
-first in any service should be imported via 
-import { CircuitBreaker } from '@service-kit/core';
-then boostrap as
-CircuitBreaker.bootstrap();
+  first in any service should be imported via
+  import { CircuitBreaker } from '@service-kit/core';
+  then boostrap as
+  CircuitBreaker.bootstrap();
 
 see usage example in /examples/core-circuit-breaker

@@ -6,7 +6,7 @@ import server from './server';
 (async () => {
   const app = await server();
   // node cache
-  await cacher.bootstrap(config, logger);
+  // await cacher.bootstrap(config, logger);
   // redis cache
   // const redis = await redisLib.bootstrap(config, logger);
   // await cacher.bootstrap(config, logger, { redis });

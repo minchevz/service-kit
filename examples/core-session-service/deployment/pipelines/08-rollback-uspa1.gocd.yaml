@@ -1,0 +1,29 @@
+format_version: 3
+pipelines:
+  core-session-service-rollback-uspa1:
+    group: core-session-service
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    environment_variables:
+      cc_username: Excite-Unicorn-Executor
+      MSTEAMS_URL: https://gamesys.webhook.office.com/webhookb2/9c45693c-b685-45e4-9a7e-a0222ad9e359@a2fb1bdc-71c6-43b3-b80d-de077d817707/IncomingWebhook/ae5dd4a9079a4e02a4de71960a9592c5/1ee6cfcf-2e3a-4a60-b0fe-0c463173716e
+    secure_variables:
+      password: AES:USwHEq4Pxh6LNg4rftJubw==:v5YakfQEkwTnLvXykldWuw==
+      gocd_agent_artifactory_password: AES:naqOGANUbGSuSSFDUiYZwQ==:E/C0A1eeReF9TVW5WYKfmLzT9xaCyEIn7f6kHyQxDFs=
+    materials:
+      core-session-service-deploy-to-live-uspa1:
+        pipeline: core-session-service-deploy-to-live-uspa1
+        stage: deploy-pp
+    template: rollback-NA
+    parameters:
+      ticket_pipe: core-session-service-deploy-to-live-uspa1
+      ticket_stage: create-release-ticket
+      ticket_job: create
+      deployment_name: core-session-service
+      deployment_alias: core-session-service
+      job_template: core-session-service - l1
+      deployment_version_alias: deploy
+      environment: uspa1
+      cc_host: https://controlcentre.prod.root.uspa1.gaia/
+      deploy_env: live_pa

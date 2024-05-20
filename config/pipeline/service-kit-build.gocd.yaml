@@ -22,26 +22,29 @@ pipelines:
             build-and-version:
               timeout: 0
               resources:
-                - node14
+                - node18
               tasks:
-                - plugin:
-                    configuration:
-                      id: script-executor
-                      version: "1"
-                    options:
-                      script: yarn docker:build
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn install
+                    command: /bin/bash
                     run_if: passed
-                - plugin:
-                    configuration:
-                      id: script-executor
-                      version: "1"
-                    options:
-                      script: docker run -t --rm service-kit yarn lintify
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn build
+                    command: /bin/bash
                     run_if: passed
-                - plugin:
-                    configuration:
-                      id: script-executor
-                      version: "1"
-                    options:
-                      script: "docker run -t --rm service-kit ./node_modules/.bin/lerna publish --yes"
+                - exec:
+                    arguments:
+                      - -c
+                      - yarn lintify
+                    command: /bin/bash
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - -c
+                      - "./node_modules/.bin/lerna publish --yes"
+                    command: /bin/bash
                     run_if: passed

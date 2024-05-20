@@ -7,7 +7,7 @@ Most of the setup comes out of the box.
 
 #### PR scan
 The Jenkins scan step can be found in the Jenkinfile coming with the service.
-the dockerfile used to run the scan on has node 14 and jdk 11. If another version of node is needed, that image can be changed.
+the dockerfile used to run the scan on has node 18 and jdk 11. If another version of node is needed, that image can be changed.
 However please make sure that the image you choose is either available in artifactory or is pulled via the artifactory docker proxy `dockerhub-proxy.artifactory.gamesys.co.uk/` so you don't hit the rate limit when pulling from dockerhub.
 
 The currently available unicorn images can be found [in the unicorn-docker-images repo](https://github.gamesys.co.uk/PlayerServices/unicorn-docker-images)

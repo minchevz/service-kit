@@ -4,9 +4,9 @@ This package exports a function that will create a Koa server instance with sens
 
 ## Features
 
-* Automatically loads in Koa-bodyparser and error handling middleware.
-* Exports a `waitFor` function to allow delaying the listen event until certain promises have resolved.
-* Exports the @Koa/Router Context for use externally.
+- Automatically loads in Koa-bodyparser and error handling middleware.
+- Exports a `waitFor` function to allow delaying the listen event until certain promises have resolved.
+- Exports the @Koa/Router Context for use externally.
 
 ## Getting started
 
@@ -20,7 +20,6 @@ After installing, execute the package and configure as necessary.
 const server = require('@service-kit/server');
 
 const myServerInstance = server();
-
 ```
 
 ## Options
@@ -33,11 +32,10 @@ An array of file locations for the service contract definitions. Expects each it
 
 ```js
 {
-    contractPaths: [
-        `${__dirname}/contracts/basic.yml`,
-        `${__dirname}/contracts/auth.yml`
-        `${__dirname}/contracts/games.yml`
-    ]
+  contractPaths: [
+    `${__dirname}/contracts/basic.yml`,
+    `${__dirname}/contracts/auth.yml``${__dirname}/contracts/games.yml`,
+  ];
 }
 ```
 
@@ -47,10 +45,6 @@ An array of directories in which to auto-lookup route controllers.
 
 ```js
 {
-    controllerPaths: [
-        `${__dirname}/src/controllers/`,
-        `${__dirname}/packages/auth/controllers`
-    ]
+  controllerPaths: [`${__dirname}/src/controllers/`, `${__dirname}/packages/auth/controllers`];
 }
 ```
-### [Overload-protection middleware](https://confluence.gamesys.co.uk/pages/viewpage.action?pageId=265361370)

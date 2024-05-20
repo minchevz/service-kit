@@ -1,6 +1,6 @@
 {
   "name": "server-health-check",
-  "version": "2.34.1",
+  "version": "2.53.0",
   "private": true,
   "description": "Example demonstration server for health checks /health/live",
   "scripts": {
@@ -10,9 +10,9 @@
     "redis:stop": "docker stop redis"
   },
   "dependencies": {
-    "@service-kit/common": "2.33.2",
-    "@service-kit/logger": "2.33.2",
-    "@service-kit/server": "2.34.1"
+    "@service-kit/common": "2.53.0",
+    "@service-kit/logger": "2.53.0",
+    "@service-kit/server": "2.53.0"
   },
   "devDependencies": {
     "ts-node-dev": "2.0.0"

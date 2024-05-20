@@ -1,0 +1,21 @@
+FROM registry-redhat-io.artifactory.gamesys.co.uk/ubi8/nodejs-18
+
+USER root
+
+# Install necessary tools
+RUN curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && yum install -y yarn
+
+ARG NPM_CONF_REG='registry=https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/'
+ARG NPM_CONF_AUTH_ALWAYS='always-auth=true'
+
+ENV NPM_CONF_REG ${NPM_CONF_REG}
+ENV NPM_CONF_AUTH_ALWAYS ${NPM_CONF_AUTH_ALWAYS}
+
+WORKDIR /usr/src/app
+
+# Copy necessary files
+COPY .npmrc /root/.npmrc
+COPY . .
+
+RUN yarn
+

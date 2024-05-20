@@ -1,0 +1,4 @@
+titleAndCommits: true
+allowRevertCommits: true
+allowMergeCommits: true
+anyCommit: true

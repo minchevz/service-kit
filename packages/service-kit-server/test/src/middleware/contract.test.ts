@@ -7,6 +7,8 @@ describe('Given the attachContract middleware', () => {
     method: 'get',
     path: '/test',
     controller: 'controllers/test',
+    memberJwtAuth: false,
+    memberJwtAuthRequired: false,
     authEnabled: false,
     authRequired: false,
     details: {

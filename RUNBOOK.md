@@ -17,7 +17,6 @@ service-kit
 - [@service-kit/common](https://artifactory.gamesys.co.uk/ui/packages/npm:%2F%2F@service-kit%2Fcommon?name=%40service-kit&type=packages)
 - [@service-kit/cacher](https://artifactory.gamesys.co.uk/ui/packages/npm:%2F%2F@service-kit%2Fcacher?name=%40service-kit&type=packages)
 
-
 ## Service Tier
 
 A group within the Operations team, working 24/7 to support 230 platinum systems at the FT, performing monitoring and basic support tasks for all of them
@@ -46,6 +45,7 @@ unicorn
 Internal / Kubernetes
 
 ## Architecture
+
 This system is a Koa/Typescript framework,Node.js
 
 - [The Library ADR 1](https://confluence.gamesys.co.uk/display/UP/The+Library)
@@ -88,6 +88,7 @@ PartiallyAutomated
 Our Fastly config automatically routes requests between the production EU and US Heroku applications. If one of those regions is down, Fastly will route all requests to the other region.
 
 ## Release Details
+
 The application is deployed to testing/staging environments whenever a new PR is created to QA and QA must :cake: as a comment.
 The application is deployed to QA whenever a new commit is pushed to the master branch of this repo on GitHub. To release to production, the QA application must be manually promoted through the INT03 and PPC2.
 

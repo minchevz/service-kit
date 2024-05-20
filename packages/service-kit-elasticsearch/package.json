@@ -1,0 +1,25 @@
+{
+  "name": "@service-kit/elasticsearch",
+  "version": "2.53.0",
+  "description": "Elasticsearch Module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b --pretty",
+    "watch": "yarn build --watch",
+    "test": "jest --colors",
+    "test:watch": "yarn test --watchAll",
+    "lintify": "eslint '**/*.{js,ts}' --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.0",
+    "jest": "^29.2.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.6.0",
+    "@service-kit/common": "2.53.0"
+  }
+}

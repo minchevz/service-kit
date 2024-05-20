@@ -19,9 +19,9 @@ items:
     videoUrl:
       type: string
     slides:
-      $ref: './SectionSlides.yaml'
+      $ref: "./SectionSlides.yaml"
     layout:
-      $ref: './SectionLayout.yaml'
+      $ref: "./SectionLayout.yaml"
   example:
     layout:
       header:
@@ -45,5 +45,5 @@ items:
       highlight:
         enabled: true
         style:
-          backgroundColor: '#fff'
-      jackpots: ['1', '2', '3']
+          backgroundColor: "#fff"
+      jackpots: ["1", "2", "3"]

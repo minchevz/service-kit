@@ -13,7 +13,7 @@ import Server, { Context, StatusCodes } from '@service-kit/server';
 import { IServiceKit, IServiceKitManifest, IDependencyMap } from './types';
 import { bootstrap, accessHandler } from './src/utils/modules';
 import * as CircuitBreaker from './src/utils/circuitBreaker';
-import * as ChimeraAuthService from './src/services/ChimeraAuthService';
+import * as SessionService from './src/services/SessionService';
 
 const dependenciesMap: IDependencyMap = { _bootstrapped: false };
 
@@ -24,7 +24,7 @@ export {
   ServiceKitCustomHttpError,
   ServiceKitHttpError,
   ServiceKitApplicationError,
-  ChimeraAuthService,
+  SessionService,
   CircuitBreaker
 };
 export let config: IConfig;
@@ -46,20 +46,27 @@ export default async (manifest: IServiceKitManifest): Promise<IServiceKit> => {
     version: config.get('APP_VERSION')
   });
 
-  ChimeraAuthService.buildChimeraClient(config, logger);
+  SessionService.buildSessionClient(config, logger);
 
   const { api, modules } = manifest;
+
+  const queueEnabled = config.get('QUEUE_ENABLED');
 
   // Wait for relevant modules to initialise
   if (modules) {
     await modules.reduce(async (dependencies, module) => {
-      dependencies[module.name] = await bootstrap(config, logger, dependencies, module);
+      const allDependencies = await dependencies;
 
-      return dependencies;
+      allDependencies[module.name] = await bootstrap(config, logger, allDependencies, module);
+
+      return allDependencies;
     }, dependenciesMap);
   }
+  if (queueEnabled && dependenciesMap.queue) {
+    /* If QUEUE_ENABLED is true. Queue dashboard is initialized in  server module*/
+    api.queues = Object.values(dependenciesMap.queue);
+  }
 
-  // Construct web server
   const server = await Server(api, logger, config);
 
   dependenciesMap._bootstrapped = true;

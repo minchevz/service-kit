@@ -1,39 +1,31 @@
-FROM node:14-alpine
+FROM dockerhub-proxy.artifactory.gamesys.co.uk/node:18-alpine
 
-ARG NPM_CONF_REG='registry=https://artifactory.gamesys.co.uk/artifactory/api/npm/gamesys-unicorn-npm-virtual/'
-ARG NPM_CONF_AUTH_ALWAYS='always-auth=true'
+# Install Git
+RUN apk add --no-cache git
 
-ARG NEXUS
-ENV NEXUS ${NEXUS}
+# Set Git user
+RUN git config --global http.sslverify "false" \
+    && git config --global user.email "dave.the.unicorn@gamesys.co.uk" \
+    && git config --global user.name "Unicorn Automation"
 
-ENV NPM_CONF_REG ${NPM_CONF_REG}
-ENV NPM_CONF_AUTH_ALWAYS ${NPM_CONF_AUTH_ALWAYS}
-
-RUN apk --no-cache add git openssh
-
-WORKDIR /usr/src/app
-
-## Get required dotfiles
-COPY .npmrc /root/.npmrc
-
-RUN if [ -z "$NEXUS" ]; \
-    then \
-        echo "Nexus Pipeline!"; \
-    else \
-        COPY .gitconfig /root/.gitconfig; \
-        COPY .ssh /root/.ssh; \
-    fi
-
-# Setup Git
-RUN  git config --global http.sslverify "false" \
-&& git config --global user.email "dave.the.unicorn@gamesys.co.uk" \
-&& git config --global user.name "Unicorn Automation"
+# To Copy npmrc to docker below steps are been performed
 
 # Copy source files
 COPY . .
 
+COPY npmfile/.npmrc /root/
+
+WORKDIR /usr/src/app
+
+# Copy source files
+COPY . .
+
+#  Install Dependencies
+RUN yarn add @typescript-eslint/eslint-plugin --dev --ignore-workspace-root-check
+
+
 # Install, clean cache and build packages
 RUN yarn
 
-# Build
-RUN yarn build
+# Command to run the application
+CMD ["yarn", "lerna", "lintify"]

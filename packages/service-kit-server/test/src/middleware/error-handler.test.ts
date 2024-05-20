@@ -2,6 +2,7 @@ import { errorHandler } from '../../../src/middleware/error-handler';
 import { Context, IError } from '../../../types';
 import * as errorUtils from '../../../src/utils/errors';
 import { ServiceKitHttpError } from '@service-kit/common';
+import { AxiosRequestHeaders, InternalAxiosRequestConfig } from 'axios';
 
 const mockErrorDictionary: Record<string, IError> = {
   body_validation_error: {
@@ -64,14 +65,14 @@ describe('Given the errorHandler middleware', () => {
       message: 'test-error',
       code: '',
       config: {
-        headers: {},
+        headers: {} as AxiosRequestHeaders,
         baseURL: 'test'
       },
       response: {
         data: null,
         status: 404,
         headers: {},
-        config: {},
+        config: {} as InternalAxiosRequestConfig,
         statusText: 'NOT_FOUND'
       },
       toJSON: () => jest.fn()

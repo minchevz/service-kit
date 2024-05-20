@@ -21,7 +21,7 @@ PRs are checked (unit tests and integration tests for now) with a Jenkins pipeli
 ## Scope
 
 A pull request should have a single specific purpose.
-It's preferred to open multiple small pull requests rather than one large one. 
+It's preferred to open multiple small pull requests rather than one large one.
 
 ## Code quality
 
